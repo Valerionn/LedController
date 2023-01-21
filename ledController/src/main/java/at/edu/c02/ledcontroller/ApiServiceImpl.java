@@ -2,10 +2,7 @@ package at.edu.c02.ledcontroller;
 
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -49,7 +46,7 @@ public class ApiServiceImpl implements ApiService {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         connection.setRequestMethod(method);
-        connection.setRequestProperty("X-Hasura-Group-ID", "5f26cca3877ad");
+        connection.setRequestProperty("X-Hasura-Group-ID", getSecret(new File("C:\\Users\\mario\\IdeaProjects\\LedController\\secret.txt")));
 
         int responseCode = connection.getResponseCode();
         if (responseCode != HttpURLConnection.HTTP_OK) {
@@ -99,6 +96,34 @@ public class ApiServiceImpl implements ApiService {
         int responseCode = connection.getResponseCode();
         String responseMessage = connection.getResponseMessage();
         return jsonObject;
+       
+    }
+
+    public String getSecret(File file)
+    {
+        try(BufferedReader reader = new BufferedReader(new FileReader(file)))
+        {
+            String input = reader.readLine();
+            return input;
+
+        } catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private static JSONObject getJsonObject(String hilfe) {
+        JSONObject responseJson = new JSONObject();
+        JSONArray jsonArray = new JSONArray(hilfe);
+        for ( int i = 0; i<jsonArray.length(); i++){
+           responseJson = jsonArray.getJSONObject(i);
+        }
+        return responseJson;
     }
 
 }
