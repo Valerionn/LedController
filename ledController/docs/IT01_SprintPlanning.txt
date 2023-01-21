@@ -1,0 +1,7 @@
+Team A: Jan und Chris
+1.1 - Einzel-Status-Abfrage (Gesamte Story)
+1.2 - Gruppen-Status-Abfrage (Tests erstellen)
+
+Team B: Vera und Patrick
+2.1 - Setzen einer LED
+
