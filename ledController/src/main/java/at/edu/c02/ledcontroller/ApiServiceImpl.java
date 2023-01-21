@@ -2,10 +2,9 @@ package at.edu.c02.ledcontroller;
 
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -19,27 +18,37 @@ public class ApiServiceImpl implements ApiService {
      * TODO: When adding additional API calls, refactor this method. Extract/Create at least one private method that
      * handles the API call + JSON conversion (so that you do not have duplicate code across multiple API calls)
      *
-     * @return `getLights` response JSON object
-     * @throws IOException Throws if the request could not be completed successfully
      */
-    @Override
-    public JSONObject getLights() throws IOException
+
+    private HttpURLConnection connectAPI(String getUrl, String method) throws IOException
     {
         // Connect to the server
-        URL url = new URL("https://balanced-civet-91.hasura.app/api/rest/getLights");
+        URL url = new URL(getUrl);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         // and send a GET request
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("X-Hasura-Group-ID", "Todo");
-        // Read the response code
-        int responseCode = connection.getResponseCode();
-        if(responseCode != HttpURLConnection.HTTP_OK) {
-            // Something went wrong with the request
-            throw new IOException("Error: getLights request failed with response code " + responseCode);
+        connection.setRequestMethod(method.toUpperCase());
+        setSecret(connection);
+        if(method.equals("PUT"))
+        {
+            connection.setDoOutput(true);
+        }
+        else
+        {
+            // Read the response code
+            int responseCode = connection.getResponseCode();
+            if(responseCode != HttpURLConnection.HTTP_OK) {
+                // Something went wrong with the request
+                throw new IOException("Error: getLights request failed with response code " + responseCode);
+            }
         }
 
+        return connection;
+    }
+
+    private JSONObject getAPICall(String getUrl) throws IOException
+    {
         // The request was successful, read the response
-        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connectAPI(getUrl, "GET").getInputStream()));
         // Save the response in this StringBuilder
         StringBuilder sb = new StringBuilder();
 
@@ -52,5 +61,58 @@ public class ApiServiceImpl implements ApiService {
         String jsonText = sb.toString();
         // Convert response into a json object
         return new JSONObject(jsonText);
+    }
+
+
+     /* @return `getLights` response JSON object
+     * @throws IOException Throws if the request could not be completed successfully
+     */
+    @Override
+    public JSONObject getLights() throws IOException
+    {
+        return getAPICall("https://balanced-civet-91.hasura.app/api/rest/getLights");
+    }
+
+    @Override
+    public JSONObject getLight(int id) throws IOException
+    {
+        return getAPICall("https://balanced-civet-91.hasura.app/api/rest/lights/"+id);
+    }
+
+
+    private void putApi(String url, String jsonInputString) throws IOException
+    {
+        HttpURLConnection connection = connectAPI(url,"PUT");
+
+        OutputStream os  = connection.getOutputStream();
+        byte[] input = jsonInputString.getBytes("utf-8");
+        os.write(input, 0, input.length);
+
+        int responseCode = connection.getResponseCode();
+        if(responseCode != HttpURLConnection.HTTP_OK) {
+            // Something went wrong with the request
+            throw new IOException("Error: getLights request failed with response code " + responseCode);
+        }
+    }
+
+    @Override
+    public void setLight(int id, String color, boolean on) throws IOException
+    {
+        String url = "https://balanced-civet-91.hasura.app/api/rest/setLight";
+        String jsonInputString = "{\"id\":" +id + ",\"color\":\"" +color + "\",\"state\":" + on + "}";
+        //System.out.println(jsonInputString);
+        putApi(url,jsonInputString);
+    }
+
+    public void setSecret(HttpURLConnection connection) throws IOException
+    {
+        String secret = new String();
+        File file = new File("secret.txt");
+        FileReader fl = new FileReader(file);
+        BufferedReader br = new BufferedReader(fl);
+
+        String line;
+        line = br.readLine();
+        connection.setRequestProperty("X-Hasura-Group-ID", line);
     }
 }
