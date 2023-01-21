@@ -22,6 +22,7 @@ public class Main {
             if(input.equalsIgnoreCase("demo"))
             {
                 ledController.demo();
+                System.out.println(ledController.getGroupLeds().toString());
             }
         }
     }
