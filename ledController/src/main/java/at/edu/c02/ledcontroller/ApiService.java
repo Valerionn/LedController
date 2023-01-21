@@ -9,7 +9,5 @@ public interface ApiService {
 
     JSONObject getLight(int id) throws IOException;
 
-    JSONObject setColor(int id, String color) throws IOException;
-
-    JSONObject setStatus(int id, boolean state) throws IOException;
+    JSONObject setLed(int id, String color, boolean state) throws IOException;
 }
