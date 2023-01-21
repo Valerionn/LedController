@@ -10,3 +10,29 @@ Epic 1
         SP 2
         dependent on 1.2
         Michael, Elma
+
+
+    It001
+        Sprint Planning
+            Story 1.1 - Einzel-Status-Abfrage
+            Story 1.2 - Gruppen-Status-Abfrage
+            Story 1.3 - Status-Abfrage
+
+        Standup 1
+            Story 1.1 implementing
+            Story 1.2 implementing
+            Story 1.3 waiting
+
+        Standup 2
+            Story 1.1 completed
+            Story 1.2 implementing
+            Story 1.3 waiting
+
+        Retro
+            Verwirrung um die Aufgabenstellung
+            bestehender Code noch nicht bekannt
+            Story 1.1 abgeschlossen
+            Story 1.2 implementierung läuft
+            Story 1.3 warten auf Story 1.2
+
+
