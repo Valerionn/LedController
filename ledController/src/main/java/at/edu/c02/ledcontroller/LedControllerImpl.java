@@ -16,6 +16,10 @@ public class LedControllerImpl implements LedController {
         this.apiService = apiService;
     }
 
+    public ApiService getApiService() {
+        return apiService;
+    }
+
     @Override
     public void demo() throws IOException
     {
@@ -36,7 +40,7 @@ public class LedControllerImpl implements LedController {
         JSONArray alleLichter = response.getJSONArray("lights");
         JSONArray result  = new JSONArray();
         for(int i = 0; i < alleLichter.length(); i++){
-            if(alleLichter.getJSONObject(i).getString("groupByGroup").equals("H")){
+            if(alleLichter.getJSONObject(i).getJSONObject("groupByGroup").getString("name").equals("H")){
                 result.put(alleLichter.getJSONObject(i));
             }
 
