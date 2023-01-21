@@ -25,8 +25,16 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public JSONObject getLights() throws IOException
     {
-        // Connect to the server
-        URL url = new URL("https://balanced-civet-91.hasura.app/api/rest/getLights");
+        return createGetRequest(new URL("https://balanced-civet-91.hasura.app/api/rest/getLights"));
+    }
+
+    @Override
+    public JSONObject getLight(int id) throws IOException {
+        return createGetRequest(new URL("https://balanced-civet-91.hasura.app/api/rest/lights/" + id));
+    }
+
+    public JSONObject createGetRequest(URL url) throws IOException {
+
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         // and send a GET request
         connection.setRequestMethod("GET");
