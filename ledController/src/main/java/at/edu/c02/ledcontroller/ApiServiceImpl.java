@@ -1,5 +1,6 @@
 package at.edu.c02.ledcontroller;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -115,15 +116,6 @@ public class ApiServiceImpl implements ApiService {
         }
 
         return null;
-    }
-
-    private static JSONObject getJsonObject(String hilfe) {
-        JSONObject responseJson = new JSONObject();
-        JSONArray jsonArray = new JSONArray(hilfe);
-        for ( int i = 0; i<jsonArray.length(); i++){
-           responseJson = jsonArray.getJSONObject(i);
-        }
-        return responseJson;
     }
 
 }
