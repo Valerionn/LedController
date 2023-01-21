@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -78,11 +79,6 @@ public class ApiServiceImpl implements ApiService {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod(request);
         connection.setRequestProperty("H", "5f26cca3877ad");
-        int responseCode = connection.getResponseCode();
-        if(responseCode != HttpURLConnection.HTTP_OK) {
-            throw new IOException("Error: getLights request failed with response code " + responseCode);
-        }
-
         return connection;
     }
     @Override
@@ -93,21 +89,29 @@ public class ApiServiceImpl implements ApiService {
         jsonObject.put("color", color);
         String response = "PUT";
         HttpURLConnection connection = extracted(setId, response);
+        connection.setDoOutput(true);
+        try(OutputStream os = connection.getOutputStream()) {
+            byte[] input = jsonObject.toString().getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
         JSONObject responseJson = null;
         if (connection.getResponseCode() == 200) {
-            String hilfe = connection.getResponseMessage();
-            JSONArray jsonArray = new JSONArray(hilfe);
-            for ( int i = 0; i<jsonArray.length(); i++){
-               responseJson = jsonArray.getJSONObject(i);
-             /*  if(i==id){
-                   jsonObject = responseJson;
-               }
-               else return null;*/
-            }
-
-        }return responseJson;
+            String responseMessage = connection.getResponseMessage();
+            responseJson = getJsonObject(responseMessage);
+        }
+        return responseJson;
 
     }
+
+    private static JSONObject getJsonObject(String hilfe) {
+        JSONObject responseJson = new JSONObject();
+        JSONArray jsonArray = new JSONArray(hilfe);
+        for ( int i = 0; i<jsonArray.length(); i++){
+           responseJson = jsonArray.getJSONObject(i);
+        }
+        return responseJson;
+    }
+
     @Override
     public JSONObject setStatus(int id, boolean state) throws IOException {
 
@@ -118,16 +122,19 @@ public class ApiServiceImpl implements ApiService {
         String setId = "setstatus";
         String response = "PUT";
         HttpURLConnection connection = extracted(setId, response);
-
+        connection.setDoOutput(true);
+        try(OutputStream os = connection.getOutputStream()) {
+            byte[] input = jsonObject.toString().getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+        JSONObject responseJson = new JSONObject();
        if(connection.getResponseCode() == 200){
-           String responseMess = connection.getResponseMessage();
-           String [] hilf = responseMess.split(",");
-           jsonObject.put("id",id);
-           jsonObject.put("color",hilf[1]);
-           jsonObject.put("state",hilf[2]);
+           String responseMessage = connection.getResponseMessage();
+           responseJson = getJsonObject(responseMessage);
+
 
        }
-       return jsonObject;
+       return responseJson;
 
     }
 }
