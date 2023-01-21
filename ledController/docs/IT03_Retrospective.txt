@@ -1,0 +1,19 @@
+Retrospektive zu Sprint01
+
+Allgemein:  Pakete waren zu groß. Zu viele verschiedene Lösungsansätze. Naming Convention von Issues und Branches wird geändert.
+            Zuerst kurze Absprache, um Duplikate zu vermeiden. "Einfach loslegen" ist der falsche Ansatz.
+            Tasks für "Analyse" abschätzen.
+
+
+TEAM A:
+Status: 1.3 fast fertig. Problem noch durch einen Bug in 1.2
+Learning: Besser testen, bevor gepushed wurde.
+
+TEAM B:
+Status: Beginn mit 2.2! 2.1 wurde erfolgreich abgeschlossen. Es konnte mehr erledigt werden als geplant.
+        Bei 2.2 noch Implementierung fertigstellen und Tests erstellen.
+
+
+PLANUNG:
+- Paketgröße hätte gepasst. Großer Zeitverlust durch ständige Probleme mit Maven.
+  Es muss immer extra kompiliert werden und das Maven Projekt neu geladen wird.

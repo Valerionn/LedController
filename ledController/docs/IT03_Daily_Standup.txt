@@ -1,0 +1,31 @@
+*************
+*STAND-UP 1:*
+*************
+
+Allgemein: Duplikate im Code für Verbindungsaufbau.
+
+Team B:
+Vera und Patrick: Gemeinsames Testen von 2.1
+
+Team A:
+Chris: Im Moment Probleme bei Main-Erstellen für 1.3. Es passiert nach Eingae nichts.
+Jan:   Siehe Feedback von Chris
+
+
+*************
+*STAND-UP 2:*
+*************
+
+
+Team A:
+Jan und Chris: Probleme mit Maven. Main für 1.3 hat nicht kompiliert, weshalb die Änderungen nicht ersichtlich waren.
+Weiters wurde ein Bugfix für getLight() gemacht.
+
+
+Team B:
+Patrick und Vera: 2.1 fertiggestellt.
+
+
+Mario: Probleme bei Build-Automation. CI läuft auf Fehler, nachdem Pull-Request von Team B gemerged wurde.
+
+
