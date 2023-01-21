@@ -1,0 +1,22 @@
+1. Planning
+    Story 2.1 - Setzen einer LED --> 8
+    Story 2.2 - Ausschalten aller LEDs --> 5
+
+    Gesamtpunkte: 13
+    geplante Punkte im Sprint: 7
+
+    Story 2.1 --> Jasmin & Diana
+    Story 2.2 --> Carina & Guilherme
+
+2. Daily Scrum Meetings
+    2.1 Meeting 1
+        Carina & Guilherme: Grundgerüst der Methode turnOffAllLights erstellt, es geht gut voran/keine Probleme
+        Jasmin & Diana: eingelesen, wie POST-Request gesendet wird; Implementierung der Methode setLight begonnen
+
+    2.2 Meeting 2
+        Carina & Guilherme: Methode turnOffAllLight fertig; Tests erfolgreich; weiter mit Story 2.3
+        Jasmin & Diana: Methode und Test implementiert, Test fehlgeschlagen, Response Code 405; weiter mit Fehlerbehebung
+
+3. Retrospektive
+        gut gelaufen; Story 2.2 fertig bekommen; Grundgerüst von 2.3 auch erstellt
+        Story 2.1 noch nicht abgeschlossen. Fehlerbehebung dauert länger als gedacht - Fehler in Methode setLight wird noch gesucht

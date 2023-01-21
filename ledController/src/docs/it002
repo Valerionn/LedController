@@ -1,0 +1,26 @@
+1. Planning
+    Story 1.1 - Einzel-Status-Abfrage --> 4
+    Story 1.2 - Gruppen-Status-Abfrage --> 4
+    Story 1.3 - Status-Abfrage --> 5
+        Task 1.3.1 Main um groupstatus erweitern
+        Task 1.3.2 Main um status erweitern
+
+    Gesamtpunkte: 13
+    geplante Punkte im Sprint: 13
+
+    Story 1.1 --> Jasmin & Diana
+    Story 1.2 --> Carina & Guilherme
+    Task 1.3.1 (von 1.2 abhängig) --> Carina & Guilherme
+    Task 1.3.2 (von 1.1 abhängig) --> Jasmin & Diana
+
+2. Daily Scrum Meetings
+    2.1 Meeting 1
+        Jasmin & Diana --> Methode zu Story 1.1 implementiert; weiter mit Task 1.3.2
+        Carina & Guilherme --> Methode zu Story 1.2 implementiert und getestet; weiter mit Task 1.3.1
+    2.2 Meeting 2
+        Jasmin & Diana --> Github-Token abgelaufen, Zeit mit Erneuerung verloren, nun wirklich weiter mit Task 1.3.2
+        Carina & Guilherme --> mit Task 1.3.1 begonnen, Merge-Konflikt muss gelöst werden, danach weiter mit Task 1.3.2
+
+3. Retrospektive
+    inhaltlich grundsätzlich gut weitergekommen, Github-Probleme und Merge-Konflikte haben viel Zeit in Anspruch genommen.
+    Story 1.3 wird in den nächsten Sprint mitgenommen, sollte nicht mehr viel Zeit in Anspruch nehmen

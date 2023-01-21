@@ -1,10 +1,12 @@
 package at.edu.c02.ledcontroller;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -30,7 +32,7 @@ public class ApiServiceImpl implements ApiService {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         // and send a GET request
         connection.setRequestMethod("GET");
-        connection.setRequestProperty("X-Hasura-Group-ID", "Todo");
+        connection.setRequestProperty("X-Hasura-Group-ID", "98fc1c149afbf4c899");
         // Read the response code
         int responseCode = connection.getResponseCode();
         if(responseCode != HttpURLConnection.HTTP_OK) {
@@ -53,4 +55,75 @@ public class ApiServiceImpl implements ApiService {
         // Convert response into a json object
         return new JSONObject(jsonText);
     }
+
+    @Override
+    public JSONObject getLight(int id) throws IOException {
+        JSONArray allLights = getLights().getJSONArray("lights");
+
+        for (int i = 0; i < allLights.length(); i++) {
+
+            JSONObject currentLight = allLights.getJSONObject(i);
+
+            if (currentLight.getInt("id") == id){
+                return currentLight;
+            }
+
+        }
+
+        return null;
+    }
+
+    @Override
+    public JSONObject setLight(int id, String color, Boolean on) throws IOException {
+
+
+            JSONObject light = new JSONObject();
+            light.put("id", id);
+            light.put("color", color);
+            light.put("state", on);
+            return POSTRequest(new URL("https://balanced-civet-91.hasura.app/api/rest/setLight"), light.toString());
+
+
+    }
+
+
+    public JSONObject POSTRequest(URL url, String light) throws IOException {
+
+
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        // and send a POST request
+        connection.setRequestMethod("PUT");
+
+        connection.setRequestProperty("X-Hasura-Group-ID", "98fc1c149afbf4c899");
+        //set Request content
+        connection.setRequestProperty("Content-Type", "application/json");
+        //set response format
+        connection.setRequestProperty("Accept", "application/json");
+        //Ensure the Connection Will Be Used to Send Content
+        connection.setDoOutput(true);
+
+        //Create the Request Body
+
+        try(OutputStream os = connection.getOutputStream()) {
+            byte[] input = light.getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        //Read the Response From Input Stream
+        try(BufferedReader br = new BufferedReader(
+                new InputStreamReader(connection.getInputStream(), "utf-8"))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine = null;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            System.out.println(response.toString());
+            return new JSONObject(response.toString());
+        }
+
+
+
+    }
+
+
 }
