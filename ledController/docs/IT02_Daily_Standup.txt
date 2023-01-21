@@ -1,0 +1,36 @@
+*************
+*STAND-UP 1:*
+*************
+
+Allgemein: Duplikate im Code für Verbindungsaufbau.
+
+Team B:
+Vera: Probleme bei Pull von Main (Master)
+Patrick: Problem beim Senden an den Server.
+
+Team A:
+Chris: Im Moment wird Methode "alleLEDs" implementiert.
+Jan:   Momentan Probleme mit dem groupByGroup
+
+Mario: Genereller Eindruck ist besser als bei erster Iteration. Implementierung geht besser voran.
+Vor allem bei Team A läuft die Zusammenarbeit beim Pair-programming besser.
+
+*************
+*STAND-UP 2:*
+*************
+
+Team B:
+Vera und Patrick: Keinerlei Probleme. Momentan wird daran gearbeitet, dass der Status und die Farbe gesetzt werden kann.
+
+Team A:
+Jan: Nachfragen wegen Mocking und Tests.
+Chris: Tests für 1.2 müssen noch geschrieben werden.
+
+Team B:
+Vera: Immer noch Probleme mit Pull von Main-Branch.
+Patrick: Logik hat funktioniert. Bevor die Tests geschrieben werden, muss das Pull noch erfolgreich durchlaufen.
+
+
+Mario: Namenskonventionen bei Issues geändert. Nun beginnen die Issues mit  Story + Nummer.
+
+
