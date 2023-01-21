@@ -1,6 +1,7 @@
 package at.edu.c02.ledcontroller;
 
 import org.json.JSONObject;
+import org.json.JSONArray;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -52,5 +53,62 @@ public class ApiServiceImpl implements ApiService {
         String jsonText = sb.toString();
         // Convert response into a json object
         return new JSONObject(jsonText);
+    }
+    private static HttpURLConnection extracted(String setId, String request) throws IOException {
+        URL url = new URL("https://balanced-civet-91.hasura.app/api/rest/" + setId);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod(request);
+        connection.setRequestProperty("H", "5f26cca3877ad");
+        int responseCode = connection.getResponseCode();
+        if(responseCode != HttpURLConnection.HTTP_OK) {
+            throw new IOException("Error: getLights request failed with response code " + responseCode);
+        }
+
+        return connection;
+    }
+    @Override
+    public JSONObject setColor(int id, String color) throws IOException {
+        String setId = "setcolor";
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id", id);
+        jsonObject.put("color", color);
+        String response = "PUT";
+        HttpURLConnection connection = extracted(setId, response);
+        JSONObject responseJson = null;
+        if (connection.getResponseCode() == 200) {
+            String hilfe = connection.getResponseMessage();
+            JSONArray jsonArray = new JSONArray(hilfe);
+            for ( int i = 0; i<jsonArray.length(); i++){
+               responseJson = jsonArray.getJSONObject(i);
+             /*  if(i==id){
+                   jsonObject = responseJson;
+               }
+               else return null;*/
+            }
+
+        }return responseJson;
+
+    }
+    @Override
+    public JSONObject setStatus(int id, boolean state) throws IOException {
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("id",id);
+        jsonObject.put("state",state);
+
+        String setId = "setstatus";
+        String response = "PUT";
+        HttpURLConnection connection = extracted(setId, response);
+
+       if(connection.getResponseCode() == 200){
+           String responseMess = connection.getResponseMessage();
+           String [] hilf = responseMess.split(",");
+           jsonObject.put("id",id);
+           jsonObject.put("color",hilf[1]);
+           jsonObject.put("state",hilf[2]);
+
+       }
+       return jsonObject;
+
     }
 }
