@@ -12,8 +12,7 @@ public class Main {
      * This is the main program entry point. TODO: add new commands when implementing additional features.
      */
     public static void main(String[] args) throws IOException {
-        LedController ledController = new LedControllerImpl(new ApiServiceImpl());
-
+        LedControllerImpl ledController = new LedControllerImpl(new ApiServiceImpl());
 
         String input = "";
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -38,8 +37,14 @@ public class Main {
             if(input.equalsIgnoreCase("status")){
                 System.out.println("Plaese specify LED ID :");
                 String id = reader.readLine();
-                int ergebnis = Integer.parseInt(id);
-                System.out.println("LED " + id + " is currently " + temp2.getBoolean("on") + " color: " + temp2.getString("color"));
+                JSONObject temp2 = ledController.getApiService().getLight(Integer.parseInt(id));
+                JSONArray ledArray = temp2.getJSONArray("lights");
+                for(int i = 0; i < ledArray.length(); i++)
+                {
+                    System.out.println("LED " + ledArray.getJSONObject(i).getInt("id") + " currently " + ledArray.getJSONObject(i).getBoolean("on")
+                            + ". Color: "+ ledArray.getJSONObject(i).getString("color") + ".");
+                }
+
             }
         }
     }
