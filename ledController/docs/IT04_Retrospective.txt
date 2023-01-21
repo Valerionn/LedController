@@ -1,0 +1,18 @@
+Retrospektive zu Sprint04
+
+Allgemein: Pakete wurden besser geplant. Allerdings könnte man das in noch kleinere Teile zerlegen.
+
+
+TEAM A + Mario:
+Zusammenarbeit hat gut funktioniert. Nachdem das Problem mit dem fehlenden Array für 1.3 gefixt wurde, konnten andere Punkte noch fertiggestellt werden.
+3.1 wurde implementiert, getestet und eingecheckt. Allerdings wurden die Bugfixes nicht via FeatureBranch implementiert, sondern aus Zeitgründen direkt im main.
+
+TEAM B:
+Status: 2.3 wurde implementiert, aber noch nicht fertiggestellt. Zusammenarbeit im Pair hat gut funktioniert.
+Geplante Teile wurden eingehalten.
+
+
+Technisch:
+- Probleme mit Maven hinderten uns sowohl in IT03 und IT04.
+
+Lessons Learned: Zu wenig und ungenaue Tests.

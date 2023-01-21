@@ -1,10 +1,9 @@
 package at.edu.c02.ledcontroller;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -23,34 +22,100 @@ public class ApiServiceImpl implements ApiService {
      * @throws IOException Throws if the request could not be completed successfully
      */
     @Override
-    public JSONObject getLights() throws IOException
-    {
-        // Connect to the server
-        URL url = new URL("https://balanced-civet-91.hasura.app/api/rest/getLights");
+    public JSONObject getLights() throws IOException {
+
+        String command = "https://balanced-civet-91.hasura.app/api/rest/getLights";
+        String method = "GET";
+        JSONObject result = initialize(command, method);
+        return result;
+
+    }
+
+    @Override
+    public JSONObject getLight(int id) throws IOException {
+
+        String command = "https://balanced-civet-91.hasura.app/api/rest/lights/" + id;
+        String method = "GET";
+        JSONObject result = initialize(command, method);
+        return result;
+
+    }
+
+    public JSONObject initialize(String command, String method) throws IOException {
+
+        URL url = new URL(command);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        // and send a GET request
-        connection.setRequestMethod("GET");
-        connection.setRequestProperty("X-Hasura-Group-ID", "Todo");
-        // Read the response code
+
+        connection.setRequestMethod(method);
+        connection.setRequestProperty("X-Hasura-Group-ID", getSecret(new File("C:\\Users\\mario\\IdeaProjects\\LedController\\secret.txt")));
+
         int responseCode = connection.getResponseCode();
-        if(responseCode != HttpURLConnection.HTTP_OK) {
+        if (responseCode != HttpURLConnection.HTTP_OK) {
             // Something went wrong with the request
-            throw new IOException("Error: getLights request failed with response code " + responseCode);
+            throw new IOException("Error: request failed with response code " + responseCode);
         }
 
-        // The request was successful, read the response
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        // Save the response in this StringBuilder
+
         StringBuilder sb = new StringBuilder();
 
         int character;
-        // Read the response, character by character. The response ends when we read -1.
-        while((character = reader.read()) != -1) {
+
+        while ((character = reader.read()) != -1) {
             sb.append((char) character);
         }
 
         String jsonText = sb.toString();
         // Convert response into a json object
         return new JSONObject(jsonText);
+
     }
+
+    private static HttpURLConnection extracted(String setId, String request) throws IOException {
+        URL url = new URL("https://balanced-civet-91.hasura.app/api/rest/" + setId);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod(request);
+        connection.setRequestProperty("X-Hasura-Group-ID", "5f26cca3877ad");
+        return connection;
+    }
+
+    @Override
+    public JSONObject setLed(int id, String color, boolean state) throws IOException {
+        String setId = "setLight";
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("state", state);
+        jsonObject.put("color", color);
+        jsonObject.put("id", id);
+        String response = "PUT";
+        HttpURLConnection connection = extracted(setId, response);
+        connection.setDoOutput(true);
+        String jsonText = jsonObject.toString();
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = jsonText.getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+        int responseCode = connection.getResponseCode();
+        String responseMessage = connection.getResponseMessage();
+        return jsonObject;
+       
+    }
+
+    public String getSecret(File file)
+    {
+        try(BufferedReader reader = new BufferedReader(new FileReader(file)))
+        {
+            String input = reader.readLine();
+            return input;
+
+        } catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
 }

@@ -1,0 +1,28 @@
+*************
+*STAND-UP 1:*
+*************
+
+Allgemein: Duplikate im Code für Verbindungsaufbau.
+
+Team B:
+Vera: Verbindungsaufbau in eigene Methode ausgelagert.
+Patrick: Ausblick: Aufbau des JSON-Objects für das Setzen des Lichts.
+
+Team A:
+Chris: Im Moment wird die getLight()-Methode implementiert.
+Jan: Momentan mehrere Lösungsansätze. Idee 1: Alle mit getLights holen und dann richtiges rausholen
+     Idee 2: Eines mit Get-Request und richtiger ID holen.
+
+
+Mario: Probleme bei der Erstellung der Issues zu Beginn. Erste Prognose: Team B wird die geplanten Tasks erfüllen.
+       Team A nicht ganz.
+
+*************
+*STAND-UP 2:*
+*************
+
+Team B:
+Vera und Patrick: Keinerlei Probleme. Momentan wird daran gearbeitet, dass der Status und die Farbe gesetzt werden kann.
+
+Team A:
+Jan und Chris: Problem mit der getLight-Methode. Die benötigte Syntax war noch unklar.

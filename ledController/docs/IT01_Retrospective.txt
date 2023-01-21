@@ -1,0 +1,19 @@
+Retrospektive zu Sprint01
+
+Allgemein:  Pakete waren zu groß. Zu viele verschiedene Lösungsansätze. Naming Convention von Issues und Branches wird geändert.
+            Zuerst kurze Absprache, um Duplikate zu vermeiden. "Einfach loslegen" ist der falsche Ansatz.
+            Tasks für "Analyse" abschätzen.
+
+
+TEAM A:
+Status: 1.1 sollte fertig sein. Tests noch nicht geschrieben.
+Learning: Vor Programmierung besser abstimmen. Overengineering von manchen Tasks.
+
+TEAM B:
+Status: Implementierung von 2.1 noch im Gange. Tests noch ausständig.
+Learning: Vor Programmierung besser abstimmen und sich dafür Zeit nehmen, die Anforderungen genauer zu prüfen.
+
+
+PLANUNG:
+- Pakete besser planen.
+- "Planung der Entwicklung"

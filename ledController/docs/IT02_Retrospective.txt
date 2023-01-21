@@ -1,0 +1,18 @@
+Retrospektive zu Sprint01
+
+Allgemein:  Pakete waren zu groß. Zu viele verschiedene Lösungsansätze. Naming Convention von Issues und Branches wird geändert.
+            Zuerst kurze Absprache, um Duplikate zu vermeiden. "Einfach loslegen" ist der falsche Ansatz.
+            Tasks für "Analyse" abschätzen.
+
+
+TEAM A:
+Status: 1.2 von der Implementierung her fertig. Tests funktionieren noch nicht.
+Learning: Gemeinsame Lösungserarbeitung vor Programmierung hilft durchaus weiter!
+
+TEAM B:
+Status: Implementierung von 2.1 ist fertig. Tests noch ausständig.
+Learning: Mehr Unterstützung von Mario (PO) bei der Implementierung
+
+
+PLANUNG:
+- Paketgröße hätte gepasst. Viele technische Probleme (Handling mit Git teilweise noch problematisch)
