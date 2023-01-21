@@ -48,4 +48,10 @@ public class LedControllerImpl implements LedController {
         }
         return groupLeds;
     }
+
+    @Override
+    public JSONObject setColorState(String light) throws IOException {
+        JSONObject response = apiService.setColorState(light);
+        return response;
+    }
 }

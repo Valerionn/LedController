@@ -8,4 +8,5 @@ public interface LedController {
     void demo() throws IOException;
 
     JSONObject[] getGroupLeds() throws IOException;
+    JSONObject setColorState(String light) throws IOException;
 }

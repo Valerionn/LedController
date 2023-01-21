@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -31,6 +32,43 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public JSONObject getLight(int id) throws IOException {
         return createGetRequest(new URL("https://balanced-civet-91.hasura.app/api/rest/lights/" + id));
+    }
+
+    @Override
+    public JSONObject setColorState(String light) throws IOException {
+        URL url = new URL ("https://balanced-civet-91.hasura.app/api/rest/setLight");
+        HttpURLConnection con = (HttpURLConnection)url.openConnection();
+        con.setRequestMethod("PUT");
+        con.setRequestProperty("X-Hasura-Group-ID", "49b934ca495991b785");
+        con.setRequestProperty("Content-Type", "application/json");
+        con.setRequestProperty("Accept", "application/json");
+
+        con.setDoOutput(true);
+        String jsonInputString = light;
+
+        try(OutputStream os = con.getOutputStream()) {
+            byte[] input = jsonInputString.getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        StringBuilder response = new StringBuilder();
+        try(BufferedReader br = new BufferedReader(
+                new InputStreamReader(con.getInputStream(), "utf-8"))) {
+
+            String responseLine = null;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+        }
+
+        // Read the response code
+        int responseCode = con.getResponseCode();
+        if(responseCode != HttpURLConnection.HTTP_OK) {
+            // Something went wrong with the request
+            throw new IOException("Error: getLights request failed with response code " + responseCode);
+        }
+
+        return new JSONObject(response);
     }
 
     public JSONObject createGetRequest(URL url) throws IOException {
