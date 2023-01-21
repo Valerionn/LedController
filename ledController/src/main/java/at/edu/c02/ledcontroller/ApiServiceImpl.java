@@ -1,7 +1,6 @@
 package at.edu.c02.ledcontroller;
 
 import org.json.JSONObject;
-import org.json.JSONArray;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -25,12 +24,11 @@ public class ApiServiceImpl implements ApiService {
      * @throws IOException Throws if the request could not be completed successfully
      */
     @Override
-    public JSONObject getLights() throws IOException
-    {
+    public JSONObject getLights() throws IOException {
 
         String command = "https://balanced-civet-91.hasura.app/api/rest/getLights";
         String method = "GET";
-        JSONObject result = initialize(command,method);
+        JSONObject result = initialize(command, method);
         return result;
 
     }
@@ -38,14 +36,14 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public JSONObject getLight(int id) throws IOException {
 
-        String command = "https://balanced-civet-91.hasura.app/api/rest/lights/"+ id;
+        String command = "https://balanced-civet-91.hasura.app/api/rest/lights/" + id;
         String method = "GET";
-        JSONObject result = initialize(command,method);
+        JSONObject result = initialize(command, method);
         return result;
 
     }
 
-    public JSONObject initialize(String command, String method) throws  IOException{
+    public JSONObject initialize(String command, String method) throws IOException {
 
         URL url = new URL(command);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -54,7 +52,7 @@ public class ApiServiceImpl implements ApiService {
         connection.setRequestProperty("X-Hasura-Group-ID", "5f26cca3877ad");
 
         int responseCode = connection.getResponseCode();
-        if(responseCode != HttpURLConnection.HTTP_OK) {
+        if (responseCode != HttpURLConnection.HTTP_OK) {
             // Something went wrong with the request
             throw new IOException("Error: request failed with response code " + responseCode);
         }
@@ -65,7 +63,7 @@ public class ApiServiceImpl implements ApiService {
 
         int character;
 
-        while((character = reader.read()) != -1) {
+        while ((character = reader.read()) != -1) {
             sb.append((char) character);
         }
 
@@ -74,67 +72,33 @@ public class ApiServiceImpl implements ApiService {
         return new JSONObject(jsonText);
 
     }
+
     private static HttpURLConnection extracted(String setId, String request) throws IOException {
         URL url = new URL("https://balanced-civet-91.hasura.app/api/rest/" + setId);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod(request);
-        connection.setRequestProperty("H", "5f26cca3877ad");
+        connection.setRequestProperty("X-Hasura-Group-ID", "5f26cca3877ad");
         return connection;
     }
+
     @Override
-    public JSONObject setColor(int id, String color) throws IOException {
-        String setId = "setcolor";
+    public JSONObject setLed(int id, String color, boolean state) throws IOException {
+        String setId = "setLight";
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id", id);
+        jsonObject.put("state", state);
         jsonObject.put("color", color);
+        jsonObject.put("id", id);
         String response = "PUT";
         HttpURLConnection connection = extracted(setId, response);
         connection.setDoOutput(true);
-        try(OutputStream os = connection.getOutputStream()) {
-            byte[] input = jsonObject.toString().getBytes("utf-8");
+        String jsonText = jsonObject.toString();
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = jsonText.getBytes("utf-8");
             os.write(input, 0, input.length);
         }
-        JSONObject responseJson = null;
-        if (connection.getResponseCode() == 200) {
-            String responseMessage = connection.getResponseMessage();
-            responseJson = getJsonObject(responseMessage);
-        }
-        return responseJson;
-
+        int responseCode = connection.getResponseCode();
+        String responseMessage = connection.getResponseMessage();
+        return jsonObject;
     }
 
-    private static JSONObject getJsonObject(String hilfe) {
-        JSONObject responseJson = new JSONObject();
-        JSONArray jsonArray = new JSONArray(hilfe);
-        for ( int i = 0; i<jsonArray.length(); i++){
-           responseJson = jsonArray.getJSONObject(i);
-        }
-        return responseJson;
-    }
-
-    @Override
-    public JSONObject setStatus(int id, boolean state) throws IOException {
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("id",id);
-        jsonObject.put("state",state);
-
-        String setId = "setstatus";
-        String response = "PUT";
-        HttpURLConnection connection = extracted(setId, response);
-        connection.setDoOutput(true);
-        try(OutputStream os = connection.getOutputStream()) {
-            byte[] input = jsonObject.toString().getBytes("utf-8");
-            os.write(input, 0, input.length);
-        }
-        JSONObject responseJson = new JSONObject();
-       if(connection.getResponseCode() == 200){
-           String responseMessage = connection.getResponseMessage();
-           responseJson = getJsonObject(responseMessage);
-
-
-       }
-       return responseJson;
-
-    }
 }
