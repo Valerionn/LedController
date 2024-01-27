@@ -6,3 +6,9 @@ Daily 1:
 
     @Bojan und Paul: Herausforderung dabei Story 1.2 mit dem Filtern der JSON File nach Gruppe
     @Tom: Arbeitet an 1.1 und kommt gut voran, keine Schwierigkeiten
+
+
+Daily 2:
+
+    @Bojan und Paul: Story 1.2 implementiert aber noch nicht fehlerfrei, sind am troubleshooten
+    @Tom: 1.1 abgeschlossen
