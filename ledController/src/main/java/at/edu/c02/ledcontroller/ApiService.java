@@ -5,5 +5,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 public interface ApiService {
-    JSONObject getLights() throws IOException;
+    JSONObject communicate(String url) throws IOException;
+
+    String setURL (String method);
+    String setURL (String method, int id);
 }

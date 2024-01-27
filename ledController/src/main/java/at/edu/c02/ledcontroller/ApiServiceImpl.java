@@ -23,17 +23,16 @@ public class ApiServiceImpl implements ApiService {
      * @throws IOException Throws if the request could not be completed successfully
      */
     @Override
-    public JSONObject getLights() throws IOException
-    {
+    public JSONObject communicate(String link) throws IOException {
         // Connect to the server
-        URL url = new URL("https://balanced-civet-91.hasura.app/api/rest/getLights");
+        URL url = new URL(link);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         // and send a GET request
         connection.setRequestMethod("GET");
         connection.setRequestProperty("X-Hasura-Group-ID", "Todo");
         // Read the response code
         int responseCode = connection.getResponseCode();
-        if(responseCode != HttpURLConnection.HTTP_OK) {
+        if (responseCode != HttpURLConnection.HTTP_OK) {
             // Something went wrong with the request
             throw new IOException("Error: getLights request failed with response code " + responseCode);
         }
@@ -45,7 +44,7 @@ public class ApiServiceImpl implements ApiService {
 
         int character;
         // Read the response, character by character. The response ends when we read -1.
-        while((character = reader.read()) != -1) {
+        while ((character = reader.read()) != -1) {
             sb.append((char) character);
         }
 
@@ -53,4 +52,33 @@ public class ApiServiceImpl implements ApiService {
         // Convert response into a json object
         return new JSONObject(jsonText);
     }
+
+    @Override
+    public String setURL(String method) {
+
+        String baseURL = "https://balanced-civet-91.hasura.app/api/rest/";
+
+        switch (method) {
+            case "getLights":
+                baseURL = baseURL + method;
+                break;
+        }
+
+        return baseURL;
+    }
+
+    @Override
+    public String setURL(String method, int id) {
+        String baseURL = "https://balanced-civet-91.hasura.app/api/rest/";
+
+        switch (method) {
+            case "getLight":
+                baseURL = baseURL + "lights" + "/" + id;
+                break;
+        }
+
+        return baseURL;
+    }
+
+
 }
