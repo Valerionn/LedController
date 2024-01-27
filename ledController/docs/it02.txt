@@ -5,3 +5,8 @@ Planing:
     @Bojan und Paul: Finish Story 1.2 -> 5 Story Points
     @Tom: Do Story 1.3 -> 5 Story Points
 
+
+Daily 1:
+    @Bojan und Paul: Kämpfen weiterhin mit API Mock und JSON Files
+    @Tom: arbeitet an Story 1.3 und kommt gut voran
+
