@@ -11,3 +11,8 @@ Spring 3:
 
 
 Sprint Ziel: zumindest 8 Story Points
+
+Daily 1:
+
+    @Bojan und Paul: Tests für 1.3 optimiert und abgeschlossen, commited und gepusht
+    @Tom WIP bei 2.1 - implementierung läuft, Token durch freundlichen Kunden übermittelt
