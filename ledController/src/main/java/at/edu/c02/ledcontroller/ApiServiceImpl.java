@@ -1,5 +1,6 @@
 package at.edu.c02.ledcontroller;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -53,4 +54,20 @@ public class ApiServiceImpl implements ApiService {
         // Convert response into a json object
         return new JSONObject(jsonText);
     }
+
+    @Override
+    public JSONObject getLight(String id) throws IOException {
+        JSONObject allLights = getLights();
+        JSONArray lightsArray = allLights.getJSONArray("lights");
+
+        for (int i = 0; i < lightsArray.length(); i++) {
+            JSONObject light = lightsArray.getJSONObject(i);
+            if (light.getInt("id") == Integer.parseInt(id)) {
+                return light;
+            }
+        }
+
+        throw new IOException("No light found with id " + id);
+    }
+
 }

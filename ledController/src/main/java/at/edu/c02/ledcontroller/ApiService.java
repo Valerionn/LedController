@@ -6,4 +6,7 @@ import java.io.IOException;
 
 public interface ApiService {
     JSONObject getLights() throws IOException;
+
+    JSONObject getLight(String id) throws IOException;
+
 }
