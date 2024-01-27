@@ -9,4 +9,6 @@ public interface ApiService {
 
     JSONObject getLight(String id) throws IOException;
 
+    void setLight(String id, String color, boolean on) throws IOException;
+
 }
