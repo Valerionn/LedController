@@ -10,3 +10,7 @@ Daily 1:
     @Bojan und Paul: Kämpfen weiterhin mit API Mock und JSON Files
     @Tom: arbeitet an Story 1.3 und kommt gut voran
 
+Daily 2:
+    @Bojan und Paul: Technische Probleme mit mockito, arbeiten jetzt bei @Paul weiter, erster Teil des Tests funktioniert nun
+    @Tom: Erste Funktion von 1.3 läuft, arbeitet jetzt an 2. Funktion
+
