@@ -19,10 +19,30 @@ public class Main {
             System.out.println("=== LED Controller ===");
             System.out.println("Enter 'demo' to send a demo request");
             System.out.println("Enter 'exit' to exit the program");
+            System.out.println("Enter 'groupstatus' to show the status of all lights in group C");
+            System.out.println("Enter 'status' to show the status of a specific light");
             input = reader.readLine();
-            if(input.equalsIgnoreCase("demo"))
-            {
-                ledController.demo();
+            switch (input.toLowerCase()) {
+                case "demo":
+                    ledController.demo();
+                    break;
+                case "exit":
+                    break;
+                case "groupstatus":
+                    ledController.outputGroupStatus();
+                    break;
+                case "status":
+                    System.out.println("Please specify LED ID:");
+                    input = reader.readLine();
+                    if(!input.matches("\\d+")) {
+                        System.out.println("Invalid input");
+                        break;
+                    }
+                    ledController.outputStatus(input);
+                    break;
+                default:
+                    System.out.println("Unknown command");
+                    break;
             }
         }
     }
