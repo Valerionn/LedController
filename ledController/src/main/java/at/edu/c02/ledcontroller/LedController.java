@@ -7,4 +7,8 @@ import java.io.IOException;
 public interface LedController {
     void demo() throws IOException;
     JSONArray getGroupLeds() throws IOException;
+
+    void outputGroupStatus() throws IOException;
+
+    void outputStatus(String id) throws IOException;
 }

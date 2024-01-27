@@ -49,4 +49,20 @@ public class LedControllerImpl implements LedController {
 
         return result;
     }
+
+    @Override
+    public void outputGroupStatus() throws IOException {
+        JSONArray lights = getGroupLeds();
+        for (int i = 0; i < lights.length(); i++) {
+            JSONObject light = lights.getJSONObject(i);
+            System.out.println("LED " + light.getInt("id") + " is currently " + (light.getBoolean("on") ? "on" : "off") + ". Color: " + light.getString("color"));
+        }
+    }
+
+    @Override
+    public void outputStatus(String id) throws IOException {
+        JSONObject light = apiService.getLight(id);
+        System.out.println("LED " + light.getInt("id") + " is currently " + (light.getBoolean("on") ? "on" : "off") + ". Color: " + light.getString("color"));
+    }
+
 }
