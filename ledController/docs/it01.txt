@@ -1,0 +1,3 @@
+Sprint Planing 1:
+    Story 1.1 @Tom (remote) -   Arbeitsaufwand: dieser Sprint
+    Story 1.2 @Bojan und @Paul -    Arbeitsaufwand: dieser Sprint
