@@ -1,3 +1,8 @@
 Sprint Planing 1:
     Story 1.1 @Tom (remote) -   Arbeitsaufwand: dieser Sprint
     Story 1.2 @Bojan und @Paul -    Arbeitsaufwand: dieser Sprint
+
+Daily 1:
+
+    @Bojan und Paul: Herausforderung dabei Story 1.2 mit dem Filtern der JSON File nach Gruppe
+    @Tom: Arbeitet an 1.1 und kommt gut voran, keine Schwierigkeiten
