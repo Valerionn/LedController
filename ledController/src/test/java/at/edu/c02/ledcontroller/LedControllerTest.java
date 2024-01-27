@@ -4,6 +4,7 @@ import org.json.JSONObject;
 import org.junit.Test;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -17,6 +18,12 @@ public class LedControllerTest {
      * This test is just here to check if tests get executed. Feel free to delete it when adding your own tests.
      * Take a look at the stack calculator tests again if you are unsure where to start.
      */
+    private JSONObject readJsonFile (String filename) throws FileNotFoundException {
+        FileReader fr = new FileReader(filename);
+        BufferedReader br = new BufferedReader(fr);
+
+        return new JSONObject(br);
+    }
     @Test
     public void dummyTest() {
         assertEquals(1, 1);
@@ -27,10 +34,7 @@ public class LedControllerTest {
        ApiService apiService = mock(ApiService.class);
        LedController ledController = new LedControllerImpl(apiService);
 
-       FileReader fr = new FileReader("getLights.json");
-       BufferedReader br = new BufferedReader(fr);
 
-       JSONObject jObject = new JSONObject(br);
 
        /*
         JSONArray jsonArray = new JSONArray();
@@ -42,8 +46,9 @@ public class LedControllerTest {
         }
         */
 
-       when(apiService.getLights()).thenReturn(jObject);
+       when(apiService.getLights()).thenReturn(readJsonFile("src/test/resources/getLights.json"));
 
+       assertEquals(ledController.getGroupLeds(),);
         // when(cal.perfom(Operation.add)).thenReturn(3.0);
 
     }
