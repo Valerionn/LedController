@@ -29,4 +29,49 @@ public class LedControllerImpl implements LedController {
         System.out.println("First light id is: " + firstLight.getInt("id"));
         System.out.println("First light color is: " + firstLight.getString("color"));
     }
+
+    public JSONArray getGroupLeds() throws IOException {
+
+        JSONObject response = apiService.getLights();
+        JSONArray lights = response.getJSONArray("lights");
+
+        JSONArray result = new JSONArray();
+
+        for (int i = 0; i < lights.length(); i++) {
+
+            JSONObject temp = lights.getJSONObject(i);
+            if(temp.getJSONObject("groupByGroup").getString("name").equals("C")){
+                result.put(temp);
+                System.out.println(temp);
+            }
+        }
+
+
+        return result;
+    }
+
+    @Override
+    public void turnOffAllLeds() throws IOException {
+        Integer[] group = {20, 21, 22, 23, 24, 25, 26, 27};
+        for (int i = 0; i < group.length; i++) {
+            this.apiService.setLight(group[i].toString(), "#f00", false);
+        }
+    }
+
+
+    @Override
+    public void outputGroupStatus() throws IOException {
+        JSONArray lights = getGroupLeds();
+        for (int i = 0; i < lights.length(); i++) {
+            JSONObject light = lights.getJSONObject(i);
+            System.out.println("LED " + light.getInt("id") + " is currently " + (light.getBoolean("on") ? "on" : "off") + ". Color: " + light.getString("color"));
+        }
+    }
+
+    @Override
+    public void outputStatus(String id) throws IOException {
+        JSONObject light = apiService.getLight(id);
+        System.out.println("LED " + light.getInt("id") + " is currently " + (light.getBoolean("on") ? "on" : "off") + ". Color: " + light.getString("color"));
+    }
+
 }

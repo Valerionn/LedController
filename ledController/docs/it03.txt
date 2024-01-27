@@ -1,0 +1,23 @@
+Spring 3:
+
+    Planing:
+
+        @Tom: Umsetzung Story 2.1 - 5 Story Points
+        @Bojan und Paul: Tests für 1.3 Optimieren - 3 Story Points
+
+        Sobald 2.1 fertig ist:
+            @Tom: Startet mit 2.3 - ganze Story entspricht 5 Points
+            @B&P: Starten mit 2.2 - ganze Story entspricht 5 Points
+
+
+Sprint Ziel: zumindest 8 Story Points
+
+Daily 1:
+
+    @Bojan und Paul: Tests für 1.3 optimiert und abgeschlossen, commited und gepusht
+    @Tom WIP bei 2.1 - implementierung läuft, Token durch freundlichen Kunden übermittelt
+
+Daily 2:
+
+    @B&P: Cleanup and Optimizing vom Code und den Tests, Planung zu 2.2
+    @Tom: WIP bei 2.1 - finishing Tests zu 2.1
