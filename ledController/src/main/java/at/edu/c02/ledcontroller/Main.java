@@ -13,6 +13,7 @@ public class Main {
 
         String input = "";
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
         while(!input.equalsIgnoreCase("exit"))
         {
             System.out.println("=== LED Controller ===");
