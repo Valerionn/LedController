@@ -25,8 +25,43 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public JSONObject getLights() throws IOException
     {
-        // Connect to the server
-        URL url = new URL("https://balanced-civet-91.hasura.app/api/rest/getLights");
+        String urlString = "https://balanced-civet-91.hasura.app/api/rest/getLights";
+        BufferedReader reader = getBufferedReader(urlString);
+        // Save the response in this StringBuilder
+        StringBuilder sb = new StringBuilder();
+
+        int character;
+        // Read the response, character by character. The response ends when we read -1.
+        while((character = reader.read()) != -1) {
+            sb.append((char) character);
+        }
+
+        String jsonText = sb.toString();
+        // Convert response into a json object
+        return new JSONObject(jsonText);
+    }
+
+    @Override
+    public JSONObject getLight(int id) throws IOException
+    {
+        String urlString = "https://balanced-civet-91.hasura.app/api/rest/lights/" + id;
+        BufferedReader reader = getBufferedReader(urlString);
+        // Save the response in this StringBuilder
+        StringBuilder sb = new StringBuilder();
+
+        int character;
+        // Read the response, character by character. The response ends when we read -1.
+        while((character = reader.read()) != -1) {
+            sb.append((char) character);
+        }
+
+        String jsonText = sb.toString();
+        // Convert response into a json object
+        return new JSONObject(jsonText);
+    }
+
+    private static BufferedReader getBufferedReader(String urlString) throws IOException {
+        URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         // and send a GET request
         connection.setRequestMethod("GET");
@@ -40,17 +75,6 @@ public class ApiServiceImpl implements ApiService {
 
         // The request was successful, read the response
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-        // Save the response in this StringBuilder
-        StringBuilder sb = new StringBuilder();
-
-        int character;
-        // Read the response, character by character. The response ends when we read -1.
-        while((character = reader.read()) != -1) {
-            sb.append((char) character);
-        }
-
-        String jsonText = sb.toString();
-        // Convert response into a json object
-        return new JSONObject(jsonText);
+        return reader;
     }
 }
