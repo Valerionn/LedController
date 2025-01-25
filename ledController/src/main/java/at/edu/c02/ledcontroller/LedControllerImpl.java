@@ -63,8 +63,7 @@ public class LedControllerImpl implements LedController {
 
         for (int i = 0; i < array.length(); i++) {
             JSONObject object = array.getJSONObject(i);
-            JSONObject objectGroup = object.getJSONObject("groupByGroup");
-            if (objectGroup.getInt("id") == id) {
+            if (object.getInt("id") == id) {
                 System.out.println("LED " + object.getInt("id") +  " is currently " + (object.getBoolean("on") ? "on" : "off") + ". Color: " + object.getString("color") + ".");
             }
         }
