@@ -18,11 +18,17 @@ public class Main {
             System.out.println("=== LED Controller ===");
             System.out.println("Enter 'demo' to send a demo request");
             System.out.println("Enter 'exit' to exit the program");
+            System.out.println("Enter 'on' to exit the program");
             input = reader.readLine();
             if(input.equalsIgnoreCase("demo"))
             {
                 ledController.demo();
             }
+            if(input.equalsIgnoreCase("on"))
+            {
+                ledController.setLed(21, "#0f0", true);
+            }
+
         }
     }
 }
