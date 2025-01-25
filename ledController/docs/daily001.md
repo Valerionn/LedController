@@ -3,8 +3,6 @@
 ### Story 1.1 Einzel Status Abfrage
 * Abgeschlossen
 ### Story 1.2 Gruppen Status Abfrage
-* Abgeschlossen
+* noch in Arbeit
 ### Story 1.3 Status Abfrage
-* Abgeschlossen
-### Tests 
-* werden nachgereicht
+* noch nicht angefangen, arbeiten an Story 1.2
