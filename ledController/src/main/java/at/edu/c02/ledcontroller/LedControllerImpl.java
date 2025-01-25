@@ -69,4 +69,8 @@ public class LedControllerImpl implements LedController {
             }
         }
     }
+
+    public void turnAllOff() throws IOException {
+        apiService.turnAllOff();
+    }
 }

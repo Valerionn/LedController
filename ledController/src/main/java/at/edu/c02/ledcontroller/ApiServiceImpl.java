@@ -104,4 +104,14 @@ public class ApiServiceImpl implements ApiService {
         }
         return true;
     }
+
+    public void turnAllOff() throws IOException{
+        int[] leds = new int[8];
+        for(int i = 0; i < leds.length; i++){
+            leds[i] = 20 + i;
+        }
+        for (int led : leds) {
+            setLed(led, "#000", false);
+        }
+    }
 }
