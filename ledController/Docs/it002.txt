@@ -1,0 +1,35 @@
+2025_01_25
+Gruppe A
+
+
+
+Sprint Planning 2. Sprint
+
+Tasks:
+
+Story 1.1 (8 Storypoints) - Leonid, Petra
+Story 1.2 (5 Storypoints) - Daniel, Sara
+
+
+1. Daily
+
+Entwickler arbeiten mit unterschiedlichen JDK-Versionen ==> Probleme beim Updaten
+
+
+2. Daily
+
+Probleme beim Updaten des Projekts bei einem Gruppenmitglied
+Story 1.1 abgeschlossen
+Story 1.2. noch in Erarbeitung
+Story 2.1 schneller als geplant in Erarbeitung
+
+2. Retro
+
+noch immer technische Probleme (Probleme beim Updaten des Projekts bei einem Gruppenmitglied)
+Story 1.1 erl. (8 Storypoints)
+Story 1.2 - Methode implementiert, Tests in Erstellung
+Story 2.1 - erl.
+
+8 von 13 Storypoints erl., zusätzlich Story 2.1 (Storypoints nicht definiert) ==> Tedenz positiv
+
+Lessons Learned: Nächste Stories (noch nicht im aktuellen Sprint eingeplant) auch mit Storypoints bewerten, um bei schnellerem Fortschritt Storypoints auswerten zu können
