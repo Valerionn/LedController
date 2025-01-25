@@ -30,6 +30,11 @@ public class LedControllerImpl implements LedController {
         System.out.println("First light color is: " + firstLight.getString("color"));
     }
 
+    public void setLed(int led, String color,boolean status)throws IOException
+    {
+        apiService.setLed(led, color, status);
+    }
+
     public void getGroupLeds() throws IOException
     {
         JSONObject allLights = apiService.getLights();
@@ -63,5 +68,9 @@ public class LedControllerImpl implements LedController {
                 System.out.println("LED " + object.getInt("id") +  " is currently " + (object.getBoolean("on") ? "on" : "off") + ". Color: " + object.getString("color") + ".");
             }
         }
+    }
+
+    public void turnAllOff() throws IOException {
+        apiService.turnAllOff();
     }
 }

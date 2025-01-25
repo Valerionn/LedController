@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -65,7 +66,7 @@ public class ApiServiceImpl implements ApiService {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         // and send a GET request
         connection.setRequestMethod("GET");
-        connection.setRequestProperty("X-Hasura-Group-ID", "Todo");
+        connection.setRequestProperty("X-Hasura-Group-ID", "537f4h99kdjd91b785");
         // Read the response code
         int responseCode = connection.getResponseCode();
         if(responseCode != HttpURLConnection.HTTP_OK) {
@@ -76,5 +77,41 @@ public class ApiServiceImpl implements ApiService {
         // The request was successful, read the response
         BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         return reader;
+    }
+
+    public Boolean setLed(int led, String color,boolean state) throws IOException{
+        URL url = new URL("https://balanced-civet-91.hasura.app/api/rest/setLight");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("PUT");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Accept", "application/json");
+        connection.setRequestProperty("X-Hasura-Group-ID", "537f4h99kdjd91b785");
+        connection.setDoOutput(true);
+        String jsonInputString = String.format("{\"id\": \"%s\", \"color\": \"%s\", \"state\": %s}", led, color, state);
+        try(OutputStream os = connection.getOutputStream()) {
+            byte[] input = jsonInputString.getBytes("utf-8");
+            os.write(input, 0, input.length);
+        }
+
+        try(BufferedReader br = new BufferedReader(
+                new InputStreamReader(connection.getInputStream(), "utf-8"))) {
+            StringBuilder response = new StringBuilder();
+            String responseLine = null;
+            while ((responseLine = br.readLine()) != null) {
+                response.append(responseLine.trim());
+            }
+            System.out.println(response.toString());
+        }
+        return true;
+    }
+
+    public void turnAllOff() throws IOException{
+        int[] leds = new int[8];
+        for(int i = 0; i < leds.length; i++){
+            leds[i] = 20 + i;
+        }
+        for (int led : leds) {
+            setLed(led, "#000", false);
+        }
     }
 }
