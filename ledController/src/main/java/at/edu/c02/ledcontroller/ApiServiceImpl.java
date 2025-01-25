@@ -114,4 +114,22 @@ public class ApiServiceImpl implements ApiService {
             setLed(led, "#000", false);
         }
     }
+
+    public void lauflicht(String color, int durchlauf) throws IOException, InterruptedException{
+        turnAllOff();
+        int[] leds = new int[8];
+        for(int i = 0; i < leds.length; i++){
+            leds[i] = 20 + i;
+        }
+        for(int i = 0; i < durchlauf; i++){
+            for (int led : leds) {
+                setLed(led, color, true);
+                Thread.sleep(1000);
+                setLed(led, color, false);
+            }
+        }
+        turnAllOff();
+
+
+    }
 }

@@ -8,4 +8,5 @@ public interface LedController {
     void turnAllOff() throws IOException;
     void getGroupLeds() throws IOException;
     void getStatus(int id) throws IOException;
+    void lauflicht(String color, int durchlauf) throws IOException, InterruptedException;
 }

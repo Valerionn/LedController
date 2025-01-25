@@ -73,4 +73,8 @@ public class LedControllerImpl implements LedController {
     public void turnAllOff() throws IOException {
         apiService.turnAllOff();
     }
+    public void lauflicht(String color, int durchlauf) throws IOException, InterruptedException{
+        apiService.lauflicht(color, durchlauf);
+    }
+
 }
