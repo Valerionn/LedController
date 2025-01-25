@@ -34,4 +34,39 @@ public class LedControllerImpl implements LedController {
     {
         apiService.setLed(led, color, status);
     }
+
+    public void getGroupLeds() throws IOException
+    {
+        JSONObject allLights = apiService.getLights();
+        if (allLights == null) return;
+        JSONArray array = allLights.getJSONArray("lights");
+
+        if (allLights.isEmpty()) return;
+
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject object = array.getJSONObject(i);
+            JSONObject objectGroup = object.getJSONObject("groupByGroup");
+            if (objectGroup.getString("name").equals("C")) {
+                System.out.println("LED " + object.getInt("id") +  " is currently " + (object.getBoolean("on") ? "on" : "off") + ". Color: " + object.getString("color") + ".");
+            }
+        }
+
+    }
+
+    @Override
+    public void getStatus(int id) throws IOException {
+        JSONObject allLights = apiService.getLight(id);
+        if (allLights == null) return;
+        JSONArray array = allLights.getJSONArray("lights");
+
+        if (allLights.isEmpty()) return;
+
+        for (int i = 0; i < array.length(); i++) {
+            JSONObject object = array.getJSONObject(i);
+            JSONObject objectGroup = object.getJSONObject("groupByGroup");
+            if (objectGroup.getInt("id") == id) {
+                System.out.println("LED " + object.getInt("id") +  " is currently " + (object.getBoolean("on") ? "on" : "off") + ". Color: " + object.getString("color") + ".");
+            }
+        }
+    }
 }
