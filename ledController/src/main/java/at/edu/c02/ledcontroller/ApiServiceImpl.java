@@ -25,6 +25,9 @@ public class ApiServiceImpl implements ApiService {
      * @return `getLights` response JSON object
      * @throws IOException Throws if the request could not be completed successfully
      */
+
+    private static final String BASE_URL = "https://balanced-civet-91.hasura.app/api/rest";
+
     // Create method JSONObject ohne Parameter
     @Override
     public JSONObject getLights() throws IOException
@@ -35,13 +38,13 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public JSONObject getLight(int ID) throws IOException
     {
-        return SendGetRequest("/getLights?id"+ ID);
+        return SendGetRequest("/getLights?id" + ID);
     }
 
     private JSONObject SendGetRequest(String query) throws IOException
     {
         // Connect to the server
-        URL url = new URL("https://balanced-civet-91.hasura.app/api/rest/getLights" +query);
+        URL url = new URL(BASE_URL + query);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         // and send a GET request
         connection.setRequestMethod("GET");
@@ -78,6 +81,7 @@ public class ApiServiceImpl implements ApiService {
 
         connection.setRequestMethod("PUT");
         connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("X-Hasura-Role", "user");
         connection.setRequestProperty("X-Hasura-Group-ID", readSecret());
         connection.setDoOutput(true);
 
