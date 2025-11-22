@@ -19,4 +19,11 @@ public interface LedController {
     JSONObject getLight(int id) throws IOException;
 
     void setLed(int id, String color) throws IOException;
+    /**
+     * Turns off all group LEDs.
+     */
+    void turnOffAllLeds() throws IOException;
+
+
+    void spinningLed(String color, int turns, long sleepMillis) throws IOException, InterruptedException;
 }
