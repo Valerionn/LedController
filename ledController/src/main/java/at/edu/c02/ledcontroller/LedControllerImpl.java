@@ -38,10 +38,16 @@ public class LedControllerImpl implements LedController {
         JSONArray groupLeds = new JSONArray();
 
         for (int i = 0; i < lights.length(); i++) {
-            JSONObject obj = lights.getJSONObject(i);
+            JSONObject led = lights.getJSONObject(i);
 
+            if (led.has("groupByGroup") && !led.isNull("groupByGroup")) {
 
+                JSONObject groupInfo = led.getJSONObject("groupByGroup");
 
+                if (groupInfo.has("name") && group.equals(groupInfo.getString("name"))) {
+                    groupLeds.put(led);
+                }
+            }
         }
 
         return groupLeds;
