@@ -17,4 +17,6 @@ public interface LedController {
      * Returns the status of a single LED by id.
      */
     JSONObject getLight(int id) throws IOException;
+
+    void setLed(int id, String color) throws IOException;
 }
