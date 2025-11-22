@@ -6,7 +6,7 @@ Implementierung der Uhrzeitanzeige über die LEDs, Erweiterung des API-Service u
 Stories im Sprint
 Story 4.1 – Uhrzeit-Anzeige
 
-Assigned: Janik
+Assigned: Valentin
 Beschreibung:
 Der LedController soll die aktuelle Uhrzeit auf den LEDs darstellen.
 Mapping:
@@ -25,7 +25,7 @@ Für Tests: Uhrzeit als Parameter übergeben (deterministisch).
 
 Story 4.2 – DELETE-API-Call
 
-Assigned: Janik
+Assigned: Max
 Beschreibung:
 ApiService um DELETE-Anfragen erweitern (DELETE /lights/:id).
 Error Handling ergänzen und Rückgabe prüfen.
