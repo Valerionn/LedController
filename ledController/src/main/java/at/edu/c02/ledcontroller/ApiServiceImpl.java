@@ -14,7 +14,7 @@ public class ApiServiceImpl implements ApiService {
     private static final String GROUP_ID = "Todo"; // wird in Story 3.1 ersetzt
 
     // Hilfsmethode für GET-Requests
-    private JSONObject sendGetRequest(String path) throws IOException {
+    JSONObject sendGetRequest(String path) throws IOException {
         URL url = new URL(BASE_URL + path);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
