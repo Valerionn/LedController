@@ -10,7 +10,7 @@ import java.io.IOException;
  */
 public class LedControllerImpl implements LedController {
     private static final int[] GROUP_LED_IDS = {
-            20, 21, 22, 23, 24, 25, 26, 27
+            46, 47, 48, 49, 50, 51, 52, 53
     };
     private final ApiService apiService;
     private final Sleeper sleeper;
