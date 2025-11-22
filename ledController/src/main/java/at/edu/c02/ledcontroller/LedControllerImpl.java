@@ -31,10 +31,20 @@ public class LedControllerImpl implements LedController {
     }
 
     @Override
-    public JSONArray getGroupLeds() throws IOException {
-        JSONObject lights = apiService.getLights();
+    public JSONArray getGroupLeds(String group) throws IOException {
+        JSONObject response = apiService.getLights();
+        JSONArray lights = response.getJSONArray("lights");
+
         JSONArray groupLeds = new JSONArray();
 
+        for (int i = 0; i < lights.length(); i++) {
+            JSONObject obj = lights.getJSONObject(i);
+
+
+
+        }
+
+        return groupLeds;
 
     }
 }

@@ -7,6 +7,6 @@ import java.io.IOException;
 
 public interface LedController {
     void demo() throws IOException;
-    JSONArray getGroupLeds() throws IOException;
+    JSONArray getGroupLeds(String group) throws IOException;
 
 }
