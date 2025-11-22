@@ -30,6 +30,7 @@ public class Main {
                 System.out.println("Please specify LED ID:");
                 input = reader.readLine();
                 JSONObject obj = api.getLight(Integer.parseInt(input));
+                System.out.println("LED " + obj.get("id") + "is on: " + obj.get("on") + ". Color: " + obj.get("color"));
             }
         }
     }
