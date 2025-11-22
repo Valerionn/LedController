@@ -8,5 +8,5 @@ import java.io.IOException;
 public interface LedController {
     void demo() throws IOException;
     JSONArray getGroupLeds(String group) throws IOException;
-
+    JSONObject setLight(int id, String color, boolean state) throws IOException;
 }
