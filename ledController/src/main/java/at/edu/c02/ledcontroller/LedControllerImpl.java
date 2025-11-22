@@ -29,4 +29,28 @@ public class LedControllerImpl implements LedController {
         System.out.println("First light id is: " + firstLight.getInt("id"));
         System.out.println("First light color is: " + firstLight.getString("color"));
     }
+
+    @Override
+    public JSONArray getGroupLeds(String group) throws IOException {
+        JSONObject response = apiService.getLights();
+        JSONArray lights = response.getJSONArray("lights");
+
+        JSONArray groupLeds = new JSONArray();
+
+        for (int i = 0; i < lights.length(); i++) {
+            JSONObject led = lights.getJSONObject(i);
+
+            if (led.has("groupByGroup") && !led.isNull("groupByGroup")) {
+
+                JSONObject groupInfo = led.getJSONObject("groupByGroup");
+
+                if (groupInfo.has("name") && group.equals(groupInfo.getString("name"))) {
+                    groupLeds.put(led);
+                }
+            }
+        }
+
+        return groupLeds;
+
+    }
 }
