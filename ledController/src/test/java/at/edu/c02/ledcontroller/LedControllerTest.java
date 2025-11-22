@@ -3,6 +3,7 @@ package at.edu.c02.ledcontroller;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.Test;
+import org.mockito.InOrder;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyInt;
@@ -96,5 +97,82 @@ public class LedControllerTest {
         verify(apiService).setLight(27, "#000000", false);
         verify(apiService, times(8)).setLight(anyInt(), eq("#000000"), eq(false));
         verifyNoMoreInteractions(apiService);
+    }
+
+    @Test
+    public void spinningLedLightsUpLedsInSequence() throws Exception {
+        ApiService apiService = mock(ApiService.class);
+        Sleeper sleeper = mock(Sleeper.class);
+        LedControllerImpl controller = new LedControllerImpl(apiService, sleeper);
+
+        when(apiService.setLight(anyInt(), anyString(), anyBoolean())).thenReturn(new JSONObject());
+
+        controller.spinningLed("#ff0000", 1, 5L);
+
+        InOrder inOrder = inOrder(apiService, sleeper);
+
+        inOrder.verify(apiService).setLight(20, "#000000", false);
+        inOrder.verify(apiService).setLight(21, "#000000", false);
+        inOrder.verify(apiService).setLight(22, "#000000", false);
+        inOrder.verify(apiService).setLight(23, "#000000", false);
+        inOrder.verify(apiService).setLight(24, "#000000", false);
+        inOrder.verify(apiService).setLight(25, "#000000", false);
+        inOrder.verify(apiService).setLight(26, "#000000", false);
+        inOrder.verify(apiService).setLight(27, "#000000", false);
+
+        inOrder.verify(apiService).setLight(20, "#ff0000", true);
+
+        int[] ids = {20, 21, 22, 23, 24, 25, 26, 27};
+        for (int i = 0; i < ids.length - 1; i++) {
+            inOrder.verify(sleeper).sleep(5L);
+            inOrder.verify(apiService).setLight(ids[i], "#000000", false);
+            inOrder.verify(apiService).setLight(ids[i + 1], "#ff0000", true);
+        }
+
+        inOrder.verify(sleeper).sleep(5L);
+        inOrder.verify(apiService).setLight(27, "#000000", false);
+
+        inOrder.verify(apiService).setLight(20, "#000000", false);
+        inOrder.verify(apiService).setLight(21, "#000000", false);
+        inOrder.verify(apiService).setLight(22, "#000000", false);
+        inOrder.verify(apiService).setLight(23, "#000000", false);
+        inOrder.verify(apiService).setLight(24, "#000000", false);
+        inOrder.verify(apiService).setLight(25, "#000000", false);
+        inOrder.verify(apiService).setLight(26, "#000000", false);
+        inOrder.verify(apiService).setLight(27, "#000000", false);
+
+        verify(apiService, times(1)).setLight(20, "#ff0000", true);
+        verify(apiService, times(1)).setLight(21, "#ff0000", true);
+        verify(apiService, times(1)).setLight(22, "#ff0000", true);
+        verify(apiService, times(1)).setLight(23, "#ff0000", true);
+        verify(apiService, times(1)).setLight(24, "#ff0000", true);
+        verify(apiService, times(1)).setLight(25, "#ff0000", true);
+        verify(apiService, times(1)).setLight(26, "#ff0000", true);
+        verify(apiService, times(1)).setLight(27, "#ff0000", true);
+        verify(sleeper, times(8)).sleep(5L);
+        verifyNoMoreInteractions(apiService, sleeper);
+    }
+
+    @Test
+    public void spinningLedWithNoTurnsJustTurnsOff() throws Exception {
+        ApiService apiService = mock(ApiService.class);
+        Sleeper sleeper = mock(Sleeper.class);
+        LedControllerImpl controller = new LedControllerImpl(apiService, sleeper);
+
+        when(apiService.setLight(anyInt(), anyString(), anyBoolean())).thenReturn(new JSONObject());
+
+        controller.spinningLed("#00ff00", 0, 10L);
+
+        verify(apiService).setLight(20, "#000000", false);
+        verify(apiService).setLight(21, "#000000", false);
+        verify(apiService).setLight(22, "#000000", false);
+        verify(apiService).setLight(23, "#000000", false);
+        verify(apiService).setLight(24, "#000000", false);
+        verify(apiService).setLight(25, "#000000", false);
+        verify(apiService).setLight(26, "#000000", false);
+        verify(apiService).setLight(27, "#000000", false);
+        verify(apiService, never()).setLight(anyInt(), eq("#00ff00"), eq(true));
+        verifyNoMoreInteractions(apiService);
+        verifyNoMoreInteractions(sleeper);
     }
 }
