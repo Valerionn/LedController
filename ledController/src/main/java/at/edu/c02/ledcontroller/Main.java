@@ -16,24 +16,21 @@ public class Main {
 
         String input = "";
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        while(!input.equalsIgnoreCase("exit"))
-        {
+        while (!input.equalsIgnoreCase("exit")) {
             System.out.println("=== LED Controller ===");
             System.out.println("Enter 'demo' to send a demo request");
             System.out.println("Enter 'status' to query a specific LED");
             System.out.println("Enter 'groupstatus' to list all group LEDs");
+            System.out.println("Enter 'spinningled' to start the spinning LED effect");
             System.out.println("Enter 'exit' to exit the program");
             System.out.print("> ");
             input = reader.readLine();
-            if(input == null) {
+            if (input == null) {
                 break;
             }
-            if(input.equalsIgnoreCase("demo"))
-            {
+            if (input.equalsIgnoreCase("demo")) {
                 ledController.demo();
-            }
-            else if (input.equalsIgnoreCase("status"))
-            {
+            } else if (input.equalsIgnoreCase("status")) {
                 System.out.println("Please specify LED ID:");
                 System.out.print("> ");
                 String idInput = reader.readLine();
@@ -48,9 +45,7 @@ public class Main {
                 } catch (IllegalArgumentException e) {
                     System.out.println(e.getMessage());
                 }
-            }
-            else if (input.equalsIgnoreCase("groupstatus"))
-            {
+            } else if (input.equalsIgnoreCase("groupstatus")) {
                 JSONArray groupLights = ledController.getGroupLeds();
                 if (groupLights.length() == 0) {
                     System.out.println("No grouped LEDs found.");
@@ -61,6 +56,23 @@ public class Main {
                         String color = light.getString("color");
                         System.out.println("LED " + light.getInt("id") + " is currently " + (isOn ? "on" : "off") + ". Color: " + color + ".");
                     }
+                }
+            } else if (input.equalsIgnoreCase("spinningled")) {
+                System.out.println("Which color?");
+                System.out.print("> ");
+                String color = reader.readLine();
+
+                System.out.println("How many turns?");
+                System.out.print("> ");
+                String turnsInput = reader.readLine();
+
+                try {
+                    int turns = Integer.parseInt(turnsInput);
+                    System.out.println("Starting SpinningLed effect...");
+                    // ggf. Signatur im LedController anpassen:
+                    ledController.spinningLed(color, turns);
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid number of turns. Please enter a number.");
                 }
             }
         }
