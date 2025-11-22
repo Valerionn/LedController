@@ -22,6 +22,7 @@ public class Main {
             System.out.println("Enter 'demo' to send a demo request");
             System.out.println("Enter 'status' to query a specific LED");
             System.out.println("Enter 'groupstatus' to list all group LEDs");
+            System.out.println("Enter 'setled' to set LED color");
             System.out.println("Enter 'exit' to exit the program");
             System.out.print("> ");
             input = reader.readLine();
@@ -61,6 +62,28 @@ public class Main {
                         String color = light.getString("color");
                         System.out.println("LED " + light.getInt("id") + " is currently " + (isOn ? "on" : "off") + ". Color: " + color + ".");
                     }
+                }
+            }
+            else if (input.equalsIgnoreCase("setled")) {
+                System.out.println("Which LED?");
+                System.out.print("> ");
+                int id;
+                try {
+                    id = Integer.parseInt(reader.readLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid LED ID.");
+                    continue;
+                }
+
+                System.out.println("Which color?");
+                System.out.print("> ");
+                String color = reader.readLine();  // e.g. "#ff00"
+
+                try {
+                    ledController.setLed(id, color);
+                    System.out.println("LED color set!");
+                } catch (IOException e) {
+                    System.out.println("Failed to set LED color: " + e.getMessage());
                 }
             }
         }
