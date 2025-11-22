@@ -18,10 +18,28 @@ public class Main {
             System.out.println("=== LED Controller ===");
             System.out.println("Enter 'demo' to send a demo request");
             System.out.println("Enter 'exit' to exit the program");
+            System.out.println("Enter 'setLed' to set a specific LED color");
             input = reader.readLine();
             if(input.equalsIgnoreCase("demo"))
             {
                 ledController.demo();
+            } else if(input.equalsIgnoreCase("setled")){
+                try{
+                    System.out.println("Which LED (ID)?");
+                    String idLed = reader.readLine();
+                    int ledId = Integer.parseInt(idLed.trim());
+
+                    System.out.println("Which color?");
+                    String color = reader.readLine().trim();
+
+                    ledController.setLight(ledId, color, true);
+
+                    System.out.println("LED color set!");
+                }catch(NumberFormatException e){
+                    System.out.println("Invalid LED ID");
+                }catch (IOException e){
+                    System.out.println("Error: " + e.getMessage());
+                }
             }
         }
     }
