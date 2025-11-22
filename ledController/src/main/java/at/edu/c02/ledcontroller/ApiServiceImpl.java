@@ -22,11 +22,23 @@ public class ApiServiceImpl implements ApiService {
      * @return `getLights` response JSON object
      * @throws IOException Throws if the request could not be completed successfully
      */
+    // Create method JSONObject ohne Parameter
     @Override
     public JSONObject getLights() throws IOException
     {
+        return SendGetRequest("/getLights");
+    }
+    //Create method JSONObject mit ID Parameter
+    @Override
+    public JSONObject getLight(int ID) throws IOException
+    {
+        return SendGetRequest("/getLights?id"+ ID);
+    }
+
+    private JSONObject SendGetRequest(String query) throws IOException
+    {
         // Connect to the server
-        URL url = new URL("https://balanced-civet-91.hasura.app/api/rest/getLights");
+        URL url = new URL("https://balanced-civet-91.hasura.app/api/rest/getLights" +query);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         // and send a GET request
         connection.setRequestMethod("GET");
@@ -52,5 +64,6 @@ public class ApiServiceImpl implements ApiService {
         String jsonText = sb.toString();
         // Convert response into a json object
         return new JSONObject(jsonText);
+
     }
 }
