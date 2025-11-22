@@ -53,4 +53,9 @@ public class LedControllerImpl implements LedController {
         return groupLeds;
 
     }
+
+    @Override
+    public JSONObject setLight(int id, String color, boolean state) throws IOException {
+        return apiService.setLight(id, color, state);
+    }
 }
