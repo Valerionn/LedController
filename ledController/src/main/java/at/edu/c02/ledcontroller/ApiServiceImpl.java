@@ -1,5 +1,6 @@
 package at.edu.c02.ledcontroller;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -25,6 +26,26 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public JSONObject getLights() throws IOException
     {
+        // Get String response
+        String response = createResponse();
+
+        return new JSONObject(response);
+    }
+
+    @Override
+    public Boolean getLight(int id) throws IOException {
+        String response = createResponse();
+        JSONObject jsonObject = new JSONObject(response);
+
+        JSONArray lights = jsonObject.getJSONArray("lights");
+        JSONObject lightByIndex = lights.getJSONObject(id);
+
+        System.out.println("Light status for light " + id + " is " +  lightByIndex.getBoolean("state"));
+
+        return lightByIndex.getBoolean("state");
+    }
+
+    private String createResponse() throws IOException {
         // Connect to the server
         URL url = new URL("https://balanced-civet-91.hasura.app/api/rest/getLights");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -49,8 +70,6 @@ public class ApiServiceImpl implements ApiService {
             sb.append((char) character);
         }
 
-        String jsonText = sb.toString();
-        // Convert response into a json object
-        return new JSONObject(jsonText);
+       return sb.toString();
     }
 }

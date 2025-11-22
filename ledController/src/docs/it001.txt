@@ -1,0 +1,13 @@
+# 1. Sprint Planning
+Ziele:
+Story 1.1 -> Alex, Jeannine
+    Bewertet mit 1 Storypoint
+Stroy 1.2 + Tests -> Mario, Raphi, Michi
+    Bewertet mit 3 Storypoints
+
+# 1. Daily
+Pushed create Connection für andere Gruppe
+Start arbeit an getLight + getLightperGroup
+
+# 2. Daily
+Refactored createConnection liefert jetzt String
