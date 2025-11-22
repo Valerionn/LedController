@@ -18,6 +18,7 @@ public interface LedController {
      */
     JSONObject getLight(int id) throws IOException;
 
+    void setLed(int id, String color) throws IOException;
     /**
      * Turns off all group LEDs.
      */
