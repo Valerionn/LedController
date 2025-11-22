@@ -1,0 +1,86 @@
+2. Sprint – Planning 
+Ziel der Iteration
+
+Schreib- und Demo-Funktionen für die LED-API bereitstellen (Setzen einzelner LEDs, Ausschalten aller LEDs, Lauflicht-Effekt) inkl. CLI-Bedienung und Tests.
+
+Stories im Sprint
+Story 2.1 – Setzen einer LED (setLight)
+
+Beschreibung:
+ApiService um Schreibzugriff erweitern, HTTP-Body senden, richtige X-Hasura-Group-ID setzen, danach Status abfragen. End-to-End-Test setzt eine LED am Beamer und liest sie zurück.
+Assigned: Janik
+Story Points: 5
+
+Story 2.2 – Ausschalten aller LEDs (turnOffAllLeds)
+
+Beschreibung:
+LedController erweitert alle Gruppen-LEDs auszuschalten; IDs zentral definiert; Tests mocken ApiService (keine echten Calls).
+Assigned: Janik
+Story Points: 3
+
+Story 2.3 – Lauflicht
+
+Beschreibung:
+LedController Lauflicht-Effekt: alle Gruppen-LEDs aus, dann sequentiell einschalten/aus mit Farbe und Anzahl Umdrehungen; wartet per Sleep; Tests wie zuvor mit Mocks.
+Assigned: Janik
+Story Points: 8
+
+Story 2.4 – Demo-Programm (spinningled)
+
+Beschreibung:
+Main erhält Command spinningled, fragt Farbe und Anzahl Umdrehungen ab, startet Lauflicht-Effekt.
+Assigned: Max
+Story Points: 2
+
+Story 2.5 – Demo-Programm (setled)
+
+Beschreibung:
+Main erhält Command setled, fragt LED-ID und Farbe ab, setzt LED und schaltet sie ein; optionale weitere Test-Commands möglich.
+Assigned: Beni
+Story Points: 2
+
+
+
+
+
+Iteration 2 – Sprint-Retrospektive (Epic 2)
+1. Wie ist der Sprint gelaufen?
+
+Der Sprint verlief insgesamt gut und strukturiert. Alle Stories des Epics konnten in logischer Reihenfolge umgesetzt werden. Die Abhängigkeiten zwischen den Stories wurden richtig berücksichtigt (2.1 → 2.2 → 2.3 → 2.4 → 2.5), und die technische Basis aus Epic 1 funktionierte stabil.
+Der Umgang mit API-Requests (PUT/GET) und die Integration der Group-ID klappte ohne Probleme. Testing mit Mockito wurde korrekt angewendet und erlaubte es, Logik ohne echte API-Calls sicher zu prüfen.
+
+2. Wurde alles geschafft?
+
+Ja, alle Stories von Epic 2 wurden erfolgreich abgeschlossen:
+
+Story 2.1: Implementierung von setLight() und erfolgreicher End-to-End-Test
+
+Story 2.2: Ausschalten aller Gruppen-LEDs mit vollständigem Mockito-Test
+
+Story 2.3: Lauflicht-Effekt funktionsfähig implementiert (inkl. Sequenzlogik und Timing)
+
+Story 2.4: CLI-Command spinningled umgesetzt
+
+Story 2.5: CLI-Command setled erfolgreich integriert
+
+Alle Funktionen konnten getestet, reviewed und gemerged werden.
+
+3. Was kann in den nächsten Sprints verbessert werden?
+
+Test-First konsequenter anwenden:
+Einige Teile (v. a. 2.3) wurden zunächst implementiert und erst danach getestet. In zukünftigen Sprints sollte die Red-Green-Refactor-Vorgehensweise strenger eingehalten werden.
+
+Umgang mit zeitbasierten Abläufen verbessern:
+Der Einsatz von Thread.sleep() machte die Implementierung teilweise unübersichtlich. Für zukünftige Effekte könnte eine abstrahierte Zeitsteuerung sinnvoll sein, um Tests stabiler zu machen.
+
+Komplexitätsmanagement in Schleifen und Sequenzen verbessern:
+Story 2.3 enthielt viele Aufrufe und verschachtelte Logik. Ein kleiner Zwischenschritt zum Strukturieren (Pseudocode oder Sequenzdiagramm) wäre hilfreich gewesen.
+
+Mehr gemeinsame Code-Reviews:
+Durch frühere Reviews hätten kleinere strukturelle Verbesserungen direkt im Sprint aufgenommen werden können.
+
+
+
+
+
+

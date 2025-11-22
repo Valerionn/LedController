@@ -1,0 +1,2 @@
+- Story 2.1: ApiService setLight fertig, gemeinsame HTTP-Hilfsmethode, E2E-Test setzt LED und liest zurück (läuft mit gültiger HASURA_GROUP_ID, sonst skip).
+- Story 2.2: turnOffAllLeds in LedController implementiert (IDs 20–27), Unit-Test mit gemocktem ApiService bestätigt Aufrufe, kein echter API-Call.
