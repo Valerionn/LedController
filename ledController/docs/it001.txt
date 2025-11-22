@@ -1,0 +1,63 @@
+1. Sprint – Planning (Iteration 1)
+Ziel der Iteration
+
+Implementierung aller Stories aus Epic 1 – Status-Abfragen, um grundlegende Leseoperationen über die LED-API bereitzustellen.
+
+Stories im Sprint
+Story 1.1 – Einzel-Status-Abfrage (getLight(id))
+
+Beschreibung:
+ApiService um die Methode getLight(int id) erweitern, ApiServiceImpl implementieren, gemeinsamen HTTP-GET-Code refactoren.
+Assigned: Max
+Story Points: 3
+
+Story 1.2 – Gruppen-Status-Abfrage (getGroupLeds())
+
+Beschreibung:
+LedController erweitern, ApiService mocken, Filterlogik implementieren, Unit-Tests erstellen.
+Assigned: Janik
+Story Points: 5
+
+Story 1.3 – CLI-Status-Abfrage (status, groupstatus)
+
+Beschreibung:
+Main um neue Befehle erweitern, Interaktion mit Nutzer implementieren, Ausgabeformat erstellen.
+Assigned: Benjamin
+Story Points: 2
+
+Aufgaben und Tasks pro Story
+Story 1.1 Tasks
+
+ApiService um getLight(int id) erweitern
+
+ApiServiceImpl: HTTP-GET-Hilfsmethode extrahieren (Code-Duplikate entfernen)
+
+JSON-Parsing implementieren
+
+Unit-Test mit Mockito (kein echter API-Call)
+
+Pull Request erstellen & Review erledigen
+
+Story 1.2 Tasks
+
+LedController um getGroupLeds() erweitern
+
+ApiService via Mockito mocken
+
+Filterlogik für Gruppen-LEDs implementieren
+
+Unit-Test implementieren (korrekte Aufrufe, korrekte Filter)
+
+PR + Review
+
+Story 1.3 Tasks
+
+Main um status und groupstatus erweitern
+
+Abfrage der LED-ID im CLI
+
+Ausgabeformat implementieren
+
+Integration der LedController-Methoden
+
+PR + Review
