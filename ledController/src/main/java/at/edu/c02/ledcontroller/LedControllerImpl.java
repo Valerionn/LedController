@@ -73,6 +73,12 @@ public class LedControllerImpl implements LedController {
             JSONObject obj = groupLeds.getJSONObject(i);
             int id = obj.getInt("id");
             apiService.setLight(id,color,true);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                break; // sauber abbrechen
+            }
         }
     }
 }
