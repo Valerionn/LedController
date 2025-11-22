@@ -17,6 +17,17 @@ public class LedControllerImpl implements LedController {
     }
 
     @Override
+    public JSONObject getLight(int id) throws IOException
+    {
+        JSONObject response = apiService.getLight(id);
+        JSONArray lights = response.getJSONArray("lights");
+        if (lights.length() == 0) {
+            throw new IllegalArgumentException("No light found for id " + id);
+        }
+        return lights.getJSONObject(0);
+    }
+
+    @Override
     public JSONArray getGroupLeds() throws IOException
     {
         JSONObject response = apiService.getLights();

@@ -56,4 +56,24 @@ public class LedControllerTest {
         verify(apiService, times(1)).getLights();
         verify(apiService, never()).getLight(anyInt());
     }
+
+    @Test
+    public void getLightReturnsSingleLightFromApi() throws Exception {
+        ApiService apiService = mock(ApiService.class);
+        LedController controller = new LedControllerImpl(apiService);
+
+        JSONObject light = new JSONObject()
+                .put("id", 10)
+                .put("color", "#0f0")
+                .put("on", true);
+
+        when(apiService.getLight(10)).thenReturn(new JSONObject()
+                .put("lights", new JSONArray().put(light)));
+
+        JSONObject result = controller.getLight(10);
+
+        assertEquals(light.toString(), result.toString());
+        verify(apiService, times(1)).getLight(10);
+        verify(apiService, never()).getLights();
+    }
 }

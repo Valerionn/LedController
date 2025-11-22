@@ -1,5 +1,8 @@
 package at.edu.c02.ledcontroller;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,11 +20,48 @@ public class Main {
         {
             System.out.println("=== LED Controller ===");
             System.out.println("Enter 'demo' to send a demo request");
+            System.out.println("Enter 'status' to query a specific LED");
+            System.out.println("Enter 'groupstatus' to list all group LEDs");
             System.out.println("Enter 'exit' to exit the program");
+            System.out.print("> ");
             input = reader.readLine();
+            if(input == null) {
+                break;
+            }
             if(input.equalsIgnoreCase("demo"))
             {
                 ledController.demo();
+            }
+            else if (input.equalsIgnoreCase("status"))
+            {
+                System.out.println("Please specify LED ID:");
+                System.out.print("> ");
+                String idInput = reader.readLine();
+                try {
+                    int id = Integer.parseInt(idInput);
+                    JSONObject light = ledController.getLight(id);
+                    boolean isOn = light.getBoolean("on");
+                    String color = light.getString("color");
+                    System.out.println("LED " + light.getInt("id") + " is currently " + (isOn ? "on" : "off") + ". Color: " + color + ".");
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid LED ID. Please enter a number.");
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            else if (input.equalsIgnoreCase("groupstatus"))
+            {
+                JSONArray groupLights = ledController.getGroupLeds();
+                if (groupLights.length() == 0) {
+                    System.out.println("No grouped LEDs found.");
+                } else {
+                    for (int i = 0; i < groupLights.length(); i++) {
+                        JSONObject light = groupLights.getJSONObject(i);
+                        boolean isOn = light.getBoolean("on");
+                        String color = light.getString("color");
+                        System.out.println("LED " + light.getInt("id") + " is currently " + (isOn ? "on" : "off") + ". Color: " + color + ".");
+                    }
+                }
             }
         }
     }
