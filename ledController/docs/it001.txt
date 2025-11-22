@@ -1,0 +1,24 @@
+Sprint Planning it001
+
+Stories, die wir in Iteration 1 bearbeiten:
+- Story 1.1: Einzel-Status-Abfrage (ApiService.getLight(id)) 
+- Story 1.2: Gruppen-Status-Abfrage (LedController.getGroupLeds() + Test)
+- Story 1.3: Main um groupstatus + status Command erweitern
+ 
+Begründung: Diese Stories hängen zusammen
+ 
+Aufwandsschätzung (Story Points):
+- Story 1.1: 2 SP (neue API-Methode + Refactoring)
+- Story 1.2: 3 SP (neue Controller-Methode + Mock-Test)
+- Story 1.3: 2 SP (Eingabe-Handling + Konsolenausgabe)
+ 
+Issues:
+- Issue #1: ApiService um getLight(id) erweitern (Stefan und Benjamin)
+- Issue #2: ApiServiceImpl refactoren – gemeinsamen Request-Code auslagern (Stefan und Benjamin)
+- Issue #3: LedController.getGroupLeds() implementieren (Stefan und Benjamin)
+- Issue #4: Test mit Mocks für getGroupLeds() (Stefan und Benjamin)
+- Issue #5: Main: Commands "groupstatus" und "status" implementieren (Stefan und Benjamin)
+
+ 
+Sprintziel:
+In dieser Iteration sollen Status-Abfragen vollständig funktionieren
