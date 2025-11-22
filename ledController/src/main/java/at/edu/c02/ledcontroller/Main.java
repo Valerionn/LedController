@@ -1,5 +1,7 @@
 package at.edu.c02.ledcontroller;
 
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,7 +11,8 @@ public class Main {
      * This is the main program entry point. TODO: add new commands when implementing additional features.
      */
     public static void main(String[] args) throws IOException {
-        LedController ledController = new LedControllerImpl(new ApiServiceImpl());
+        ApiServiceImpl api = new ApiServiceImpl();
+        LedController ledController = new LedControllerImpl(api);
 
         String input = "";
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -19,9 +22,14 @@ public class Main {
             System.out.println("Enter 'demo' to send a demo request");
             System.out.println("Enter 'exit' to exit the program");
             input = reader.readLine();
-            if(input.equalsIgnoreCase("demo"))
-            {
+            if(input.equalsIgnoreCase("demo")) {
                 ledController.demo();
+            } else if (input.equalsIgnoreCase("groupstatus")) {
+                ledController.getGroupLeds("B");
+            } else if (input.equalsIgnoreCase("status")) {
+                System.out.println("Please specify LED ID:");
+                input = reader.readLine();
+                JSONObject obj = api.getLight(Integer.parseInt(input));
             }
         }
     }
