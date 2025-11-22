@@ -22,4 +22,7 @@ public interface LedController {
      * Turns off all group LEDs.
      */
     void turnOffAllLeds() throws IOException;
+
+
+    void spinningLed(String color, int turns, long sleepMillis) throws IOException, InterruptedException;
 }
