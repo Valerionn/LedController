@@ -9,11 +9,51 @@ import java.io.IOException;
  * This class handles the actual logic
  */
 public class LedControllerImpl implements LedController {
+    private static final int[] GROUP_LED_IDS = {
+            20, 21, 22, 23, 24, 25, 26, 27
+    };
     private final ApiService apiService;
 
     public LedControllerImpl(ApiService apiService)
     {
         this.apiService = apiService;
+    }
+
+    @Override
+    public JSONObject getLight(int id) throws IOException
+    {
+        JSONObject response = apiService.getLight(id);
+        JSONArray lights = response.getJSONArray("lights");
+        if (lights.length() == 0) {
+            throw new IllegalArgumentException("No light found for id " + id);
+        }
+        return lights.getJSONObject(0);
+    }
+
+    @Override
+    public JSONArray getGroupLeds() throws IOException
+    {
+        JSONObject response = apiService.getLights();
+        JSONArray lights = response.getJSONArray("lights");
+        JSONArray groupLeds = new JSONArray();
+
+        for (int i = 0; i < lights.length(); i++) {
+            JSONObject light = lights.getJSONObject(i);
+            JSONObject group = light.optJSONObject("groupByGroup");
+            if (group != null && group.has("name") && !group.isNull("name")) {
+                groupLeds.put(light);
+            }
+        }
+
+        return groupLeds;
+    }
+
+    @Override
+    public void turnOffAllLeds() throws IOException
+    {
+        for (int id : GROUP_LED_IDS) {
+            apiService.setLight(id, "#000000", false);
+        }
     }
 
     @Override

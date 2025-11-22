@@ -1,0 +1,41 @@
+2. Sprint – Planning 
+Ziel der Iteration
+
+Schreib- und Demo-Funktionen für die LED-API bereitstellen (Setzen einzelner LEDs, Ausschalten aller LEDs, Lauflicht-Effekt) inkl. CLI-Bedienung und Tests.
+
+Stories im Sprint
+Story 2.1 – Setzen einer LED (setLight)
+
+Beschreibung:
+ApiService um Schreibzugriff erweitern, HTTP-Body senden, richtige X-Hasura-Group-ID setzen, danach Status abfragen. End-to-End-Test setzt eine LED am Beamer und liest sie zurück.
+Assigned: Janik
+Story Points: 5
+
+Story 2.2 – Ausschalten aller LEDs (turnOffAllLeds)
+
+Beschreibung:
+LedController erweitert alle Gruppen-LEDs auszuschalten; IDs zentral definiert; Tests mocken ApiService (keine echten Calls).
+Assigned: Janik
+Story Points: 3
+
+Story 2.3 – Lauflicht
+
+Beschreibung:
+LedController Lauflicht-Effekt: alle Gruppen-LEDs aus, dann sequentiell einschalten/aus mit Farbe und Anzahl Umdrehungen; wartet per Sleep; Tests wie zuvor mit Mocks.
+Assigned: Janik
+Story Points: 8
+
+Story 2.4 – Demo-Programm (spinningled)
+
+Beschreibung:
+Main erhält Command spinningled, fragt Farbe und Anzahl Umdrehungen ab, startet Lauflicht-Effekt.
+Assigned: Max
+Story Points: 2
+
+Story 2.5 – Demo-Programm (setled)
+
+Beschreibung:
+Main erhält Command setled, fragt LED-ID und Farbe ab, setzt LED und schaltet sie ein; optionale weitere Test-Commands möglich.
+Assigned: Beni
+Story Points: 2
+
