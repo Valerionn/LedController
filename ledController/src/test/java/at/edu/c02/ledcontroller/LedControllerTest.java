@@ -1,8 +1,13 @@
 package at.edu.c02.ledcontroller;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+
+import java.io.File;
+
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 
 public class LedControllerTest {
@@ -11,7 +16,81 @@ public class LedControllerTest {
      * Take a look at the stack calculator tests again if you are unsure where to start.
      */
     @Test
-    public void dummyTest() {
-        assertEquals(1, 1);
+    public void TestGetGroupLeds() {
+
+        ApiService apiService = mock(ApiService.class);
+
+        // 2) JSON bauen, das der Mock zurückgeben soll
+        //{
+        //"lights": [
+        //{
+        //"id": 1, // ID, mit der diese LED identifiziert wird
+        //"color": "#fff", // Aktuelle Farbe
+        //"on": true, // `true`, wenn die LED eingeschalten ist
+        //"groupByGroup": {
+        //"name": "B" // Name der Gruppe, der diese LED gehört
+        //}
+        //},
+        //{
+        //"id": 2, // ID, mit der diese LED identifiziert wird
+        //"color": "#fff", // Aktuelle Farbe
+        //"on": false, // `true`, wenn die LED eingeschalten ist
+        //"groupByGroup": {
+        //"name": "B" // Name der Gruppe, der diese LED gehört
+        //}
+        //},
+
+
+        JSONArray lights = new JSONArray();
+
+        JSONObject group = new JSONObject();
+        group.put("name", "B");
+
+        JSONObject light1 = new JSONObject();
+        light1.put("id", 1);
+        light1.put("color", "#fff");
+        light1.put("on", true);
+        light1.put("groupByGroup", group);
+
+        lights.put(light1);
+
+        JSONObject light2 = new JSONObject();
+        light2.put("id", 2);
+        light2.put("color", "#fff");
+        light2.put("on", false);
+        light2.put("groupByGroup", group);
+
+        lights.put(light2);
+
+        // Wenn getGroupLeds() aufgerufen wird, dieses JSON zurückgeben
+        when(apiService.getGroupLeds("B")).thenReturn(lights);
+
+        // 3) Controller mit dem Mock erstellen
+        LedControllerImpl controller = new LedControllerImpl(apiService);
+
+        JSONArray result = controller.getGroupLeds("B");
+
+        //Anzahl prüfen
+        assertEquals(2, result.length());
+
+        //LED mit ID 2 finden
+        JSONObject led2 = null;
+        for (int i = 0; i < result.length(); i++) {
+            JSONObject led = result.getJSONObject(i);
+            if (led.getInt("id") == 2) {
+                led2 = led;
+                break;
+            }
+        }
+
+        assertNotNull("LED mit ID 2 wurde nicht gefunden!", led2);
+
+        //Felder prüfen
+        assertEquals("#fff", led2.getString("color"));
+        assertEquals(false, led2.getBoolean("on"));
+        assertEquals("B", led2.getJSONObject("groupByGroup").getString("name"));
+
+        verify(apiService, times(1)).getGroupLeds("B");
+
     }
 }
