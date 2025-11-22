@@ -107,8 +107,8 @@ public class ApiServiceImpl implements ApiService {
     }
 
     public static String readSecret() throws IOException {
-        String path = "secret.txt";  // relativer Pfad
-        return Files.readString(Paths.get(path)).trim();
+        //String path = "..secret.txt";  // relativer Pfad
+        return Files.readString(Paths.get("..", "secret.txt")).trim();
     }
 
 
