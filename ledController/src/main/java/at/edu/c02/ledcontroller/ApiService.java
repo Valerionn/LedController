@@ -9,4 +9,7 @@ public interface ApiService {
 
     // NEU: Einzelne LED per ID abfragen
     JSONObject getLight(int id) throws IOException;
+
+    // NEU: LED setzen
+    JSONObject setLight(int id, String color, boolean state) throws IOException;
 }
