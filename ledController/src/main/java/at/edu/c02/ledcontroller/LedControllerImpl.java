@@ -9,6 +9,9 @@ import java.io.IOException;
  * This class handles the actual logic
  */
 public class LedControllerImpl implements LedController {
+    private static final int[] GROUP_LED_IDS = {
+            20, 21, 22, 23, 24, 25, 26, 27
+    };
     private final ApiService apiService;
 
     public LedControllerImpl(ApiService apiService)
@@ -43,6 +46,14 @@ public class LedControllerImpl implements LedController {
         }
 
         return groupLeds;
+    }
+
+    @Override
+    public void turnOffAllLeds() throws IOException
+    {
+        for (int id : GROUP_LED_IDS) {
+            apiService.setLight(id, "#000000", false);
+        }
     }
 
     @Override

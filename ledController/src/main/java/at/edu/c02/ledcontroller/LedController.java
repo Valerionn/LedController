@@ -17,4 +17,9 @@ public interface LedController {
      * Returns the status of a single LED by id.
      */
     JSONObject getLight(int id) throws IOException;
+
+    /**
+     * Turns off all group LEDs.
+     */
+    void turnOffAllLeds() throws IOException;
 }

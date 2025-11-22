@@ -76,4 +76,25 @@ public class LedControllerTest {
         verify(apiService, times(1)).getLight(10);
         verify(apiService, never()).getLights();
     }
+
+    @Test
+    public void turnOffAllLedsCallsSetLightForConfiguredIds() throws Exception {
+        ApiService apiService = mock(ApiService.class);
+        LedController controller = new LedControllerImpl(apiService);
+
+        when(apiService.setLight(anyInt(), anyString(), anyBoolean())).thenReturn(new JSONObject());
+
+        controller.turnOffAllLeds();
+
+        verify(apiService).setLight(20, "#000000", false);
+        verify(apiService).setLight(21, "#000000", false);
+        verify(apiService).setLight(22, "#000000", false);
+        verify(apiService).setLight(23, "#000000", false);
+        verify(apiService).setLight(24, "#000000", false);
+        verify(apiService).setLight(25, "#000000", false);
+        verify(apiService).setLight(26, "#000000", false);
+        verify(apiService).setLight(27, "#000000", false);
+        verify(apiService, times(8)).setLight(anyInt(), eq("#000000"), eq(false));
+        verifyNoMoreInteractions(apiService);
+    }
 }
