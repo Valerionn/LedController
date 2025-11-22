@@ -16,7 +16,7 @@ public class LedControllerTest {
      * Take a look at the stack calculator tests again if you are unsure where to start.
      */
     @Test
-    public void TestGetGroupLeds() {
+    public void TestGetLights() throws Exception {
 
         ApiService apiService = mock(ApiService.class);
 
@@ -62,8 +62,11 @@ public class LedControllerTest {
 
         lights.put(light2);
 
+        JSONObject response = new JSONObject();
+        response.put("lights", lights);
+
         // Wenn getGroupLeds() aufgerufen wird, dieses JSON zurückgeben
-        when(apiService.getGroupLeds("B")).thenReturn(lights);
+        when(apiService.getLights()).thenReturn(response);
 
         // 3) Controller mit dem Mock erstellen
         LedControllerImpl controller = new LedControllerImpl(apiService);
@@ -87,10 +90,10 @@ public class LedControllerTest {
 
         //Felder prüfen
         assertEquals("#fff", led2.getString("color"));
-        assertEquals(false, led2.getBoolean("on"));
+        assertFalse(led2.getBoolean("on"));
         assertEquals("B", led2.getJSONObject("groupByGroup").getString("name"));
 
-        verify(apiService, times(1)).getGroupLeds("B");
+        verify(apiService, times(1)).getLights();
 
     }
 }
